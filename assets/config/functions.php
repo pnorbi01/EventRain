@@ -45,8 +45,11 @@ function checkUserLogin($username, $enteredPassword)
 
     if ($query->rowCount() > 0) {
         foreach ($results as $result) {
-            if($result["active"] != 1) {
+            if($result["active"] == 0) {
                 redirection(SITE."login.php?m=7");
+            }
+            if($result["active"] == -1){
+                redirection(SITE."login.php?m=10");
             }
             $data['id_user'] = (int)$result['user_id'];
             $registeredPassword = $result['password'];
@@ -222,6 +225,17 @@ function sendPasswordRecoveryEmail($username, $email, $token)
     $body = "Dear $username,";
     $body .= "<br>Click on <a href='".$url."'>this</a> link to reset your password.";
     return sendMail($email, "Forgotten password", $body);
+}
+
+function sendFriendInvitation($email, $eventName)
+{
+    $url = SITE . "index.php";
+    $user = $_SESSION["username"];
+    $body = "Dear, <strong>User</strong>";
+    $body .= "<br><br>You got event invitation from: <strong>$user</strong>";
+    $body .= "<br>Event's name: <strong>$eventName</strong>";
+    $body .= "<br><br>Visit our <strong><a href='".$url."'>site</a></strong> to get more informations about the upcoming event!";
+    return sendMail($email, "Event Invitation", $body);
 }
 
 function deleteToken($token) {

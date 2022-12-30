@@ -39,8 +39,11 @@ $titles = [
     'setting-new-password.php' => 'Setting Up New Password',
     'selected-event.php' => 'More Info About Selected Event',
     'modify-selected-event.php' => 'Modify Event',
-    'invite-friends-to-event.php' => 'Inviting Friend'
-];
+    'invite-friends-to-event.php' => 'Inviting Friend',
+    'selected-invited-event.php' => 'More Info About Invited Event',
+    'change-my-status.php' => 'Changing My Status',
+    'invited-people.php' => 'Invited People'
+]; 
 
 $messages = [
     'login.php' => [
@@ -52,7 +55,8 @@ $messages = [
         6 => ['style' => 'success', 'text' => 'Your password has been changed successfully.'],
         7 => ['style' => 'danger', 'text' => 'Your account is not active, check your email.'],
         8 => ['style' => 'danger', 'text' => 'Your token for reseting password expired.'],
-        9 => ['style' => 'danger', 'text' => 'Something went wrong while reseting your password.']
+        9 => ['style' => 'danger', 'text' => 'Something went wrong while reseting your password.'],
+        10 => ['style' => 'danger', 'text' => 'Your account has been banned permanently.']
         
     ],
     'register.php' => [
@@ -119,6 +123,11 @@ $messages = [
     'manage-events.php' => [
         1 => ['style' => 'success', 'text' => 'Event has been inactivated successfully.'],
         2 => ['style' => 'success', 'text' => 'Event has been activated successfully.']
+    ],
+    'change-my-status.php' => [
+        1 => ['style' => 'success', 'text' => 'Your status has been changed successfully.'],
+        2 => ['style' => 'danger', 'text' => 'No change has been made.'],
+        3 => ['style' => 'danger', 'text' => 'Something went wrong, while updating your status, please try again.']
     ],
 ];
 

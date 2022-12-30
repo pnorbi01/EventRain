@@ -10,6 +10,7 @@ if(isset($_POST["inviteFriendBtn"])) {
         
         $friend = trim($_POST["firendEmail"]);
         $eventId = trim($_POST["eventId"]);
+        $email = trim($_POST["firendEmail"]);
 
         global $dsn, $pdoOptions;
         $pdo = connectDatabase($dsn, $pdoOptions);
@@ -23,7 +24,18 @@ if(isset($_POST["inviteFriendBtn"])) {
 
         $lastInsertedId = $pdo->lastInsertId();
 
+        $selectEventNameSql = "SELECT * FROM invitations, events WHERE events.event_id = :id AND invitations.event_id = events.event_id";
+
+        $eventNameQuery = $pdo->prepare($selectEventNameSql);
+        $eventNameQuery->bindParam(':id', $eventId, PDO::PARAM_INT);
+        $eventNameQuery->execute();
+
+        $eventNameResults = $eventNameQuery->fetch();
+
+        $eventName = $eventNameResults["event_name"];
+
         if ($lastInsertedId > 0) {
+            sendFriendInvitation($email, $eventName);
             redirection("../../invite-friends-to-event.php?m=1&id=$eventId");
         } 
         else {

@@ -137,22 +137,19 @@ $publicEventResults = $selectPublicEventQuery->fetchAll(PDO::FETCH_ASSOC);
 
 
     <div class="px-3 pt-3 my-3 text-start">
-        <h5 class="display-9">Invited events <span class="badge bg-danger rounded-pill">0</span></h5>
+        <h5 class="display-9">Invited events <span class="badge bg-danger rounded-pill"><?php echo $selectInvitationsQuery->rowCount() ?></span></h5>
         <hr class="hr">
         <?php 
             if ($selectInvitationsQuery->rowCount() > 0){
                 foreach($InvitationsResult as $invitationResult){
         ?>
         <div class="list-group my-3 px-5">
-            <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+            <a href="selected-invited-event.php?id=<?= $invitationResult["event_id"] ?>" class="list-group-item list-group-item-action" aria-current="true">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1"><?= $invitationResult["event_name"] ?></h5>
-                    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">More info</button>
                 </div>
                 <p class="mb-1"><?= $invitationResult["event_type"] ?></p>
-                <small><?= $invitationResult["event_location"] ?>,
-                    <?= $invitationResult["event_street"] ?></small>
+                <small><?= $invitationResult["event_location"] ?>, <?= $invitationResult["event_street"] ?></small>
             </a>
         </div>
         <?php
