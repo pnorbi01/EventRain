@@ -5,7 +5,7 @@ require_once('../config/config.php');
 
 if(isset($_POST["changeMyStatus"])) {
     if(isset($_POST["myEventStatus"]) && !empty($_POST["myEventStatus"]) && 
-    isset($_POST["eventsId"]) && !empty($_POST["eventsId"])) {
+        isset($_POST["eventsId"]) && !empty($_POST["eventsId"])) {
 
             $myEventStatus = trim($_POST["myEventStatus"]);
             $eventsId = (int)$_POST["eventsId"];

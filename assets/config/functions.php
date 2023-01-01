@@ -369,3 +369,55 @@ function getCountryCode(string $ipAddress):array
 
     return $result;
 }
+
+function insertIntoGiftsTable ($event_id, $name) {
+
+    global $dsn, $pdoOptions;
+    $pdo = connectDatabase($dsn, $pdoOptions);
+
+    $sql = "INSERT INTO gifts (event_id, name) VALUES (:event_id, :name)";
+    $query = $pdo->prepare($sql);
+    $query->bindParam(':event_id', $event_id, PDO::PARAM_INT);
+    $query->bindParam(':name', $name, PDO::PARAM_STR);
+
+    $query->execute();
+}
+
+function checkIfAlreadyInvited ($event_id, $email) {
+
+    global $dsn, $pdoOptions;
+    $pdo = connectDatabase($dsn, $pdoOptions);
+
+    $sql = "SELECT * FROM invitations, events WHERE invitations.event_id = :event_id AND events.event_id = invitations.event_id AND invitations.invited_user_email = :email";
+    $query = $pdo->prepare($sql);
+    $query->bindParam(':event_id', $event_id, PDO::PARAM_INT);
+    $query->bindParam(':email', $email, PDO::PARAM_STR);
+    $query->execute();
+    $result = $query->fetch();
+    
+    if($query->rowCount() > 0) {
+        return $result["event_name"];
+    }
+
+    return null;
+}
+
+function dataExists($selectField, $selectTable, $whereFields, $whereValues): bool {
+
+    global $dsn, $pdoOptions;
+    $pdo = connectDatabase($dsn, $pdoOptions);
+
+    $sql = "SELECT $selectField FROM $selectTable";
+
+    $where = " WHERE $whereFields[0] = :$whereFields[0] AND $whereFields[1] = :$whereFields[1]";
+
+    $sql .= $where;
+
+    $query = $pdo->prepare($sql);
+    $query->bindParam(":$whereFields[0]", $whereValues[0], PDO::PARAM_INT);
+    $query->bindParam(":$whereFields[1]", $whereValues[1], PDO::PARAM_STR);
+
+    $query->execute();
+
+    return $query->rowCount() > 0 ? true : false;
+}

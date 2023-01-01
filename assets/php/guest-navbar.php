@@ -7,13 +7,13 @@
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="index.php" class="nav-link px-2 link-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 link-dark">Wishlist</a></li>
+                <li><a href="wishlist.php" class="nav-link px-2 link-dark">Wishlist</a></li>
                 <li><a href="events.php" class="nav-link px-2 link-dark">Events</a></li>
             </ul>
 
             <div class="col-md-3 text-end">
-                <a href="login.php"><button type="button" class="btn btn-outline-primary me-2">Log-In</button></a>
-                <a href="register.php"><button type="button" class="btn btn-primary">Sign-Up</button></a>
+                <a href="login.php"><button type="button" class="btn btn-outline-primary me-2">Login</button></a>
+                <a href="register.php"><button type="button" class="btn btn-primary">Sign up</button></a>
             </div>
         </div>
     </div>

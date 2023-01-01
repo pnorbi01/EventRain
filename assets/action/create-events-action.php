@@ -18,6 +18,11 @@ if(isset($_POST["createEventBtn"])) {
         $eventLocation = trim($_POST["eventLocation"]);
         $eventStreet = trim($_POST["eventStreet"]);
         $eventStart = trim($_POST["eventStart"]);
+        $giftNames = array_map(function ($giftNames) {
+            return trim(strip_tags($giftNames));
+        }, $_POST['giftName']);
+
+        print_r($giftNames);
 
         global $dsn, $pdoOptions;
         $pdo = connectDatabase($dsn, $pdoOptions);
@@ -35,8 +40,16 @@ if(isset($_POST["createEventBtn"])) {
         $query->execute();
 
         $lastInsertedId = $pdo->lastInsertId();
-
+        $allValuesCorrect = true;
+        
         if ($lastInsertedId > 0) {
+            for ($i = 0; $i < count($giftNames); $i++) {
+                if (!empty($giftNames[$i]) and !dataExists('gift_id', 'gifts', ['event_id', 'name'], [$lastInsertedId, $giftNames[$i]])) {
+                    insertIntoGiftsTable($lastInsertedId, $giftNames[$i]);
+                } else {
+                    $allValuesCorrect = false;
+                }
+            }
             redirection("../../events.php?m=3");
         } 
         else {

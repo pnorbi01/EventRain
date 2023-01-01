@@ -36,9 +36,7 @@
     <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
         <div class="col-lg-6">
             <h1 class="display-5 fw-bold lh-1 mb-3 text-end" style="color: cornflowerblue;">Wishlist</h1>
-            <p class="lead text-end">Az általunk személyreszabott kívánságlistával könnyedén választhat a különféle
-                egyedi ajándékok közül a gyermeke számára, minden korosztálynak és minden pénztárcának. Gyermeke olyan
-                átgondolt és tartalmas ajándékot kaphat, amelyet valójában szeretett volna.</p>
+            <p class="lead text-end">Our personalized wish list you can choose easily from unique gifts for your child in every age and price. Your child can get an deliberate and matterful gift, which He/She wanted indeed.</p>
         </div>
         <div class="col-10 col-sm-8 col-lg-6">
             <img src="assets/images/wishlist.png" class="d-block mx-lg-auto img-fluid" alt="Wishlist" width="700"
@@ -54,7 +52,7 @@
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
         <div class="feature col">
             <div
-                class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-2">
                 <i class="bi bi-wallet-fill" style="color: cornflowerblue;"></i>
             </div>
             <h3 class="fs-2">It is for free</h3>
@@ -62,7 +60,7 @@
         </div>
         <div class="feature col">
             <div
-                class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-2">
                 <i class="bi bi-gift-fill" style="color: cornflowerblue;"></i>
             </div>
             <h3 class="fs-2">There is a wishlist</h3>
@@ -70,12 +68,11 @@
         </div>
         <div class="feature col">
             <div
-                class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+                class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-2">
                 <i class="bi bi-gear-fill" style="color: cornflowerblue;"></i>
             </div>
             <h3 class="fs-2">It is easy to use</h3>
-            <p>Legyen akárhány éves, applikációnkban mindent megtalál gyorsan, amit szeretne, mivel felületünk
-                letisztult, átlátható és könnyen kezelhető.</p>
+            <p>No matter how old you are, you can quickly find everything you want in our application, as our interface is clean, transparent and easy to use.</p>
         </div>
     </div>
 </div>

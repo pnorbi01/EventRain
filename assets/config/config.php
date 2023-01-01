@@ -42,12 +42,13 @@ $titles = [
     'invite-friends-to-event.php' => 'Inviting Friend',
     'selected-invited-event.php' => 'More Info About Invited Event',
     'change-my-status.php' => 'Changing My Status',
-    'invited-people.php' => 'Invited People'
+    'invited-people.php' => 'Invited People',
+    'wishlist.php' => 'Wishlist'
 ]; 
 
 $messages = [
     'login.php' => [
-        1 => ['style' => 'danger', 'text' =>'Please, fill all required fields correctly.'],
+        1 => ['style' => 'danger', 'text' =>'Please fill all required fields correctly.'],
         2 => ['style' => 'danger', 'text' => 'Wrong username or password.'],
         3 => ['style' => 'success', 'text' => 'Your account has been activated successfully.'],
         4 => ['style' => 'danger', 'text' => 'Your account is activated already.'],
@@ -60,7 +61,7 @@ $messages = [
         
     ],
     'register.php' => [
-        1 => ['style' => 'danger', 'text' => 'Please, fill all required fields correctly.'],
+        1 => ['style' => 'danger', 'text' => 'Please fill all required fields correctly.'],
         2 => ['style' => 'danger', 'text' =>'Password must be at least 7 characters long.'],
         3 => ['style' => 'danger', 'text' => 'This username is already exists.'],
         4 => ['style' => 'danger', 'text' => 'Invalid e-mail address.'],
@@ -99,19 +100,24 @@ $messages = [
     ],
     'create-events.php' => [
         1 => ['style' => 'danger', 'text' => 'Something went wrong, while creating event, please try again.'],
-        2 => ['style' => 'danger', 'text' => 'Please, fill all required fields correctly.']
+        2 => ['style' => 'danger', 'text' => 'Please fill all required fields correctly.']
     ],
     'events.php' => [
         1 => ['style' => 'success', 'text' => 'You have deleted event successfully.'],
         2 => ['style' => 'danger', 'text' => 'Something went wrong, while deleting event, please try again.'],
         3 => ['style' => 'success', 'text' => 'You have created event successfully.'],
         4 => ['style' => 'success', 'text' => 'Event has been updated successfully.'],
-        5 => ['style' => 'danger', 'text' => 'Something went wrong, while updating event, please try again.']
+        5 => ['style' => 'danger', 'text' => 'Something went wrong, while updating event, please try again.'],
+        6 => ['style' => 'success', 'text' => 'You joined the party successfully.'],
+        7 => ['style' => 'danger', 'text' => 'Something went wrong, while joining party, please try again.'],
+        8 => ['style' => 'success', 'text' => 'You quitted the party successfully..'],
+        9 => ['style' => 'danger', 'text' => 'Something went wrong, while quiting party, please try again.'],
     ],
     'invite-friends-to-event.php' => [
         1 => ['style' => 'success', 'text' => 'You have invited your friend successfully.'],
         2 => ['style' => 'danger', 'text' => 'Something went wrong, while inviting your friend, please try again.'],
-        3 => ['style' => 'danger', 'text' => 'Please, fill all required fields correctly.']
+        3 => ['style' => 'danger', 'text' => 'Please fill all required fields correctly.'],
+        4 => ['style' => 'danger', 'text' => 'This user is already invited, reminder sent.']
     ],
     'modify-selected-event.php' => [
         1 => ['style' => 'danger', 'text' => 'No changes have been made.']
@@ -128,6 +134,10 @@ $messages = [
         1 => ['style' => 'success', 'text' => 'Your status has been changed successfully.'],
         2 => ['style' => 'danger', 'text' => 'No change has been made.'],
         3 => ['style' => 'danger', 'text' => 'Something went wrong, while updating your status, please try again.']
+    ],
+    'invited-people.php' => [
+        1 => ['style' => 'success', 'text' => 'User has been deleted from this event successfully.'],
+        2 => ['style' => 'danger', 'text' => 'Something went wrong, while deleting your friend, please try again.']
     ],
 ];
 

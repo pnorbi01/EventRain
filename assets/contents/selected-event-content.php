@@ -12,6 +12,19 @@ else {
     redirection("index.php");
 }
 
+$selectJoinedEventsSql = "SELECT * FROM invitations WHERE event_id = :id AND invited_user_email = :email";
+$joinedEventQuery = $pdo->prepare($selectJoinedEventsSql);
+$joinedEventQuery->bindParam(':id', $eventId, PDO::PARAM_INT);
+$joinedEventQuery->bindParam(':email', $_SESSION["user_email"], PDO::PARAM_STR);
+$joinedEventQuery->execute();
+$joinedEventsResult = $joinedEventQuery->fetch();
+
+$creatorSql = "SELECT * FROM events, users WHERE event_id = :id AND events.user_id = users.user_id";
+$creatorQuery = $pdo->prepare($creatorSql);
+$creatorQuery->bindParam(':id', $eventId, PDO::PARAM_INT);
+$creatorQuery->execute();
+$creatorResult = $creatorQuery->fetch();
+
 $selectMyEventsSql = "SELECT * FROM events WHERE event_id = :id";
 $query = $pdo->prepare($selectMyEventsSql);
 $query->bindParam(':id', $eventId, PDO::PARAM_INT);
@@ -43,7 +56,7 @@ $MyEventsResult = $query->fetchAll(PDO::FETCH_ASSOC);
                 ?>
                 <div class="d-flex w-100 flex-row-reverse">
                     <span class="badge rounded-pill bg-success"><?= $result["event_status"] ?></span>
-                </div>   
+                </div>
                 <?php
                 }
                 ?>
@@ -52,25 +65,42 @@ $MyEventsResult = $query->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <p class="mb-1"><?= $result["event_type"] ?></p>
                 <small><?= $result["event_location"] ?>, <?= $result["event_street"] ?></small><br><br>
-                <small><i class="bi bi-calendar-check-fill"></i> Event created at: <?= $result["date_time"] ?></small><br>
-                <small><i class="bi bi-calendar-check-fill"></i> Event starts at: <?= $result["event_start"] ?></small><br><br>
+                <small><i class="bi bi-calendar-check-fill"></i> Event created at:
+                <strong><?= $result["date_time"] ?></strong></small><br>
+                <small><i class="bi bi-clock-fill"></i> Event starts at:
+                    <strong><?= $result["event_start"] ?></strong></small><br>
+                <small><i class="bi bi-person-fill"></i> Event created by:
+                    <strong><?= $creatorResult["username"] ?></strong></small><br><br>
                 <?php if($result["user_id"] == $_SESSION["id_user"]){ ?>
                 <form method="post" action="assets/action/selected-event-action.php">
                     <input type="hidden" name="eventId" value="<?= $result["event_id"] ?>">
                     <input class="btn btn-outline-danger" type="submit" name="deleteEvent" value="Delete Current Event">
                 </form>
-                <a href="modify-selected-event.php?id=<?= $result["event_id"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="modifyEvent" value="Modify Event"></a>
-                <a href="invite-friends-to-event.php?id=<?= $result["event_id"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="inviteFriend" value="Invite Friends"></a>
-                <a href="invited-people.php?id=<?= $result["event_id"] ?> "><input class="btn btn-outline-primary mb-3" type="submit" name="checkInvitedPeople" value="People who are invited"></a>
+                <a href="modify-selected-event.php?id=<?= $result["event_id"] ?>"><input
+                        class="btn btn-outline-primary mb-3" type="submit" name="modifyEvent" value="Modify Event"></a>
+                <a href="invite-friends-to-event.php?id=<?= $result["event_id"] ?>"><input
+                        class="btn btn-outline-primary mb-3" type="submit" name="inviteFriend"
+                        value="Invite Friends"></a>
+                <a href="invited-people.php?id=<?= $result["event_id"] ?> "><input class="btn btn-outline-primary mb-3"
+                        type="submit" name="checkInvitedPeople" value="Invited people"></a>
                 <?php 
                 } else {
                     if(isAuthenticated()){
+                        if ($joinedEventQuery->rowCount() == 0) {
                 ?>
-                <a href="#"><input class="btn btn-outline-primary mb-3" type="submit" name="wantToJoin" value="Want to join"></a>
-                <a href="invited-people.php?id=<?= $result["event_id"] ?> "><input class="btn btn-outline-primary mb-3" type="submit" name="checkInvitedPeople" value="People who are invited"></a>
+                <a
+                    href="assets/action/want-to-join-action.php?id=<?= $result["event_id"] ?>&email=<?= $_SESSION["user_email"] ?>"><input
+                        class="btn btn-outline-primary mb-3" type="submit" name="wantToJoin" value="Join party"></a>
+                <?php   } else { ?>
+                <a
+                    href="assets/action/unjoin-action.php?id=<?= $result["event_id"] ?>&email=<?= $_SESSION["user_email"] ?>"><input
+                        class="btn btn-outline-danger mb-3" type="submit" name="unJoin" value="Quit party"></a>
+                <?php     } ?>
+                <a href="invited-people.php?id=<?= $result["event_id"] ?> "><input class="btn btn-outline-primary mb-3"
+                        type="submit" name="checkInvitedPeople" value="Invited people"></a>
                 <?php
                     } else { ?>
-                <a href="login.php"><button type="button" class="btn btn-primary me-2">Please, Log-In first!</button></a>
+                <a href="login.php"><button type="button" class="btn btn-primary me-2">Login to join</button></a>
                 <?php
                     }
                 }

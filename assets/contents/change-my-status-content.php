@@ -50,81 +50,44 @@ $MyEventsResult = $query->fetch();
                                     <?= $MyEventsResult["event_name"] ?></label>
                             </div>
                             <label for="eventStatus" class="form-label">Choose your status</label>
-                            <?php if($myStatus == "in progress") { ?>
+
+                            <?php if($myStatus == "accepted") { ?>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="myEventStatus" id="in progress"
-                                    value="in progress" checked>
+                                <input class="form-check-input" type="radio" name="myEventStatus" id="accepted"
+                                    value="accepted" checked>
                                 <label class="form-check-label" for="exampleRadios1">
-                                    In progress
+                                    Accept
                                 </label>
                             </div>
                             <?php } else { ?>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="myEventStatus" id="in progress"
-                                    value="in progress">
+                                <input class="form-check-input" type="radio" name="myEventStatus" id="accepted"
+                                    value="accepted">
                                 <label class="form-check-label" for="exampleRadios1">
-                                    In progress
+                                    Accept
                                 </label>
                             </div>
                             <?php } ?>
 
 
-
-                            <?php if($myStatus == "comes") { ?>
+                            <?php if($myStatus == "declined") { ?>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="myEventStatus" id="comes"
-                                    value="comes" checked>
+                                <input class="form-check-input" type="radio" name="myEventStatus" id="declined"
+                                    value="declined" checked>
                                 <label class="form-check-label" for="exampleRadios1">
-                                    Comes
+                                    Decline
                                 </label>
                             </div>
                             <?php } else { ?>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="myEventStatus" id="comes"
-                                    value="comes">
+                                <input class="form-check-input" type="radio" name="myEventStatus" id="declined"
+                                    value="declined">
                                 <label class="form-check-label" for="exampleRadios1">
-                                    Comes
+                                    Decline
                                 </label>
                             </div>
                             <?php } ?>
 
-
-                            <?php if($myStatus == "does not come") { ?>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="myEventStatus" id="does not come"
-                                    value="does not come" checked>
-                                <label class="form-check-label" for="exampleRadios1">
-                                    Does not come
-                                </label>
-                            </div>
-                            <?php } else { ?>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="myEventStatus" id="does not come"
-                                    value="does not come">
-                                <label class="form-check-label" for="exampleRadios1">
-                                    Does not come
-                                </label>
-                            </div>
-                            <?php } ?>
-
-
-                            <?php if($myStatus == "maybe comes") { ?>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="myEventStatus" id="does not come"
-                                    value="does not come" checked>
-                                <label class="form-check-label" for="exampleRadios1">
-                                    Maybe comes
-                                </label>
-                            </div>
-                            <?php } else { ?>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="myEventStatus" id="maybe comes"
-                                    value="maybe comes">
-                                <label class="form-check-label" for="exampleRadios1">
-                                    Maybe comes
-                                </label>
-                            </div>
-                            <?php } ?>
                             <div class="pt-4 mb-5 pb-1">
                                 <input type="hidden" value="<?= $eventId ?>" name="eventsId">
                                 <input type="submit" class="btn btn-primary btn-lg btn-block w-100" name="changeMyStatus" value="Change my status">

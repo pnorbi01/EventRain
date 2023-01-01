@@ -11,7 +11,7 @@ $query->bindParam(':id', $_SESSION["id_user"], PDO::PARAM_INT);
 $query->execute();
 $MyEventsResult = $query->fetchAll(PDO::FETCH_ASSOC);
 
-$selectInvitationsSql = "SELECT * FROM invitations, events WHERE invitations.invited_user_email = :email AND invitations.event_id = events.event_id";
+$selectInvitationsSql = "SELECT DISTINCT * FROM invitations, events WHERE invitations.invited_user_email = :email AND invitations.event_id = events.event_id";
 $selectInvitationsQuery = $pdo->prepare($selectInvitationsSql);
 $selectInvitationsQuery->bindParam(':email', $_SESSION["user_email"], PDO::PARAM_STR);
 $selectInvitationsQuery->execute();
@@ -145,6 +145,9 @@ $publicEventResults = $selectPublicEventQuery->fetchAll(PDO::FETCH_ASSOC);
         ?>
         <div class="list-group my-3 px-5">
             <a href="selected-invited-event.php?id=<?= $invitationResult["event_id"] ?>" class="list-group-item list-group-item-action" aria-current="true">
+                <div class="d-flex w-100 flex-row-reverse">
+                    <span class="badge rounded-pill bg-dark"><?= $invitationResult["status"] ?></span>
+                </div>
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1"><?= $invitationResult["event_name"] ?></h5>
                 </div>

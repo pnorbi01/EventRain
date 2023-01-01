@@ -18,6 +18,12 @@ $query->bindParam(':id', $eventId, PDO::PARAM_INT);
 $query->execute();
 $MyEventsResult = $query->fetchAll(PDO::FETCH_ASSOC);
 
+$creatorSql = "SELECT * FROM events, users WHERE event_id = :id AND events.user_id = users.user_id";
+$creatorQuery = $pdo->prepare($creatorSql);
+$creatorQuery->bindParam(':id', $eventId, PDO::PARAM_INT);
+$creatorQuery->execute();
+$creatorResult = $creatorQuery->fetch();
+
 $selectMyInvitedEventsSql = "SELECT * FROM invitations WHERE event_id = :id AND invited_user_email = :invited_user_email";
 $myInvitedEventQuery = $pdo->prepare($selectMyInvitedEventsSql);
 $myInvitedEventQuery->bindParam(':invited_user_email', $_SESSION["user_email"], PDO::PARAM_STR);
@@ -44,14 +50,14 @@ $myInvitedEventResult = $myInvitedEventQuery->fetch();
                 <?php if($result["event_status"] == "private"){?>
                 <div class="d-flex w-100 flex-row-reverse">
                     <span class="badge rounded-pill bg-danger"><?= $result["event_status"] ?></span>&nbsp;
-                    <span class="badge rounded-pill bg-warning"><?= $myInvitedEventResult["status"] ?></span>
+                    <span class="badge rounded-pill bg-dark"><?= $myInvitedEventResult["status"] ?></span>
                 </div>
                 <?php 
                 } else {
                 ?>
                 <div class="d-flex w-100 flex-row-reverse">
                     <span class="badge rounded-pill bg-success"><?= $result["event_status"] ?></span>&nbsp;
-                    <span class="badge rounded-pill bg-warning"><?= $myInvitedEventResult["status"] ?></span>
+                    <span class="badge rounded-pill bg-dark"><?= $myInvitedEventResult["status"] ?></span>
                 </div>
                 <?php
                 }
@@ -62,9 +68,11 @@ $myInvitedEventResult = $myInvitedEventQuery->fetch();
                 <p class="mb-1"><?= $result["event_type"] ?></p>
                 <small><?= $result["event_location"] ?>, <?= $result["event_street"] ?></small><br><br>
                 <small><i class="bi bi-calendar-check-fill"></i> Event created at:
-                    <?= $result["date_time"] ?></small><br>
-                <small><i class="bi bi-calendar-check-fill"></i> Event starts at:
-                    <?= $result["event_start"] ?></small><br><br>
+                    <strong><?= $result["date_time"] ?></strong></small><br>
+                <small><i class="bi bi-clock-fill"></i> Event starts at:
+                    <strong><?= $result["event_start"] ?></strong></small><br>
+                <small><i class="bi bi-person-fill"></i> Event created by:
+                    <strong><?= $creatorResult["username"] ?></strong></small><br><br>
                 <?php if($result["user_id"] == $_SESSION["id_user"]){ ?>
                 <form method="post" action="assets/action/selected-event-action.php">
                     <input type="hidden" name="eventId" value="<?= $result["event_id"] ?>">
@@ -79,7 +87,7 @@ $myInvitedEventResult = $myInvitedEventQuery->fetch();
                     if(isAuthenticated()){
                 ?>
                 <a href="change-my-status.php?id=<?= $eventId ?>&status=<?= $myInvitedEventResult["status"] ?>"><input class="btn btn-outline-primary" type="submit" name="changeMyStatus" value="Change my status"></a><br<br>
-                <a href="invited-people.php?id=<?= $eventId ?> "><input class="btn btn-outline-primary" type="submit" name="checkInvitedPeople" value="People who are invited"></a><br>
+                <a href="invited-people.php?id=<?= $eventId ?> "><input class="btn btn-outline-primary" type="submit" name="checkInvitedPeople" value="Invited people"></a><br>
                 <?php if($myInvitedEventResult["status"] == "in progress" || $myInvitedEventResult["status"] == "maybe comes") { ?>
                 <small style="color:#f00;">Your currently status is <strong><?= $myInvitedEventResult["status"] ?></strong>. Please let the organizer know if you
                     are coming or not!</small>
