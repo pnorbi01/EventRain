@@ -9,7 +9,7 @@ if(isset($_GET["id"]) && !empty($_GET["id"]) &&
         
         $id = (int)$_GET["id"];
         $email = trim($_GET["email"]);
-        $status = "accepted";
+        $status = "joined";
 
         global $dsn, $pdoOptions;
         $pdo = connectDatabase($dsn, $pdoOptions);

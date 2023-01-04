@@ -61,7 +61,7 @@ $(document).ready(function(){
             '                <input type="text" class="form-control" id="name" name="giftName[]">\n' +
             '            </div>\n' +
             '            <div class="col-md-5 mt-5">\n' +
-            '                <button type="button" class="btn btn-primary removeName">\n' +
+            '                <button type="button" class="btn btn-danger removeName">\n' +
             '                    <i class="bi bi-dash"></i>\n' +
             '                </button>\n' +
             '            </div>\n' +

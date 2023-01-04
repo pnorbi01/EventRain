@@ -11,9 +11,11 @@ $query->bindParam(':id', $_SESSION["id_user"], PDO::PARAM_INT);
 $query->execute();
 $MyEventsResult = $query->fetchAll(PDO::FETCH_ASSOC);
 
-$selectInvitationsSql = "SELECT DISTINCT * FROM invitations, events WHERE invitations.invited_user_email = :email AND invitations.event_id = events.event_id";
+$status = "joined";
+$selectInvitationsSql = "SELECT DISTINCT * FROM invitations, events WHERE invitations.invited_user_email = :email AND invitations.event_id = events.event_id AND invitations.status != :status";
 $selectInvitationsQuery = $pdo->prepare($selectInvitationsSql);
 $selectInvitationsQuery->bindParam(':email', $_SESSION["user_email"], PDO::PARAM_STR);
+$selectInvitationsQuery->bindParam(':status', $status, PDO::PARAM_STR);
 $selectInvitationsQuery->execute();
 $InvitationsResult = $selectInvitationsQuery->fetchAll(PDO::FETCH_ASSOC);
 
@@ -173,7 +175,7 @@ $publicEventResults = $selectPublicEventQuery->fetchAll(PDO::FETCH_ASSOC);
         <div class="list-group my-3 px-5">
             <div class="d-flex w-100 justify-content-center">
                 <h5 class="mb-1 text-center">Please <a href="login.php"><button type="button"
-                            class="btn btn-primary me-2">Log-In</button></a> to create your own events!</h5>
+                            class="btn btn-primary me-2">Login</button></a> to create your own events!</h5>
             </div>
         </div>
         <?php

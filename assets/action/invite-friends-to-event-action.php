@@ -45,7 +45,7 @@ if(isset($_POST["inviteFriendBtn"])) {
             }
         }
         else {
-            sendFriendInvitation($email, $event_name);
+            sendFriendInvitationReminder($email, $event_name);
             redirection("../../invite-friends-to-event.php?m=4&id=$eventId");
         }
 

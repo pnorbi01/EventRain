@@ -5,26 +5,25 @@ require_once('../config/config.php');
 require_once('../config/functions.php');
 
 if(isset($_GET["id"]) && !empty($_GET["id"]) && 
-    isset($_GET["email"]) && !empty($_GET["email"])) {
+    isset($_GET["event_id"]) && !empty($_GET["event_id"])) {
         
         $id = (int)$_GET["id"];
-        $email = trim($_GET["email"]);
+        $eventId = (int)$_GET["event_id"];
 
         global $dsn, $pdoOptions;
         $pdo = connectDatabase($dsn, $pdoOptions);
 
-        $sql = "DELETE FROM invitations WHERE event_id = :id AND invited_user_email = :email";
+        $sql = "DELETE FROM gifts WHERE gift_id = :id";
 
         $query = $pdo->prepare($sql);
         $query->bindParam(':id', $id, PDO::PARAM_INT);
-        $query->bindParam(':email', $email, PDO::PARAM_STR);
         $query->execute();
 
         if ($query->rowCount() > 0) {
-            redirection("../../events.php?m=8");
+            redirection("../../wishlist.php?m=2&id=$eventId");
         } 
         else {
-            redirection("../../events.php?m=9");
+            redirection("../../wishlist.php?m=3&id=$eventId");
         }
 }
 else {

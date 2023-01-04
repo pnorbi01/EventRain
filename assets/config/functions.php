@@ -238,6 +238,18 @@ function sendFriendInvitation($email, $eventName)
     return sendMail($email, "Event Invitation", $body);
 }
 
+function sendFriendInvitationReminder($email, $eventName)
+{
+    $url = SITE . "index.php";
+    $user = $_SESSION["username"];
+    $body = "Dear, <strong>User</strong>";
+    $body .= "<br><br>You got event invitation reminder from: <strong>$user</strong>";
+    $body .= "<br>Event's name: <strong>$eventName</strong>";
+    $body .= "<br>Hurry up to not miss this event!";
+    $body .= "<br><br>Visit our <strong><a href='".$url."'>site</a></strong> to get more informations about the upcoming event!";
+    return sendMail($email, "Event Invitation Reminder", $body);
+}
+
 function deleteToken($token) {
     global $dsn, $pdoOptions;
     $pdo = connectDatabase($dsn, $pdoOptions);

@@ -83,18 +83,18 @@ $MyEventsResult = $query->fetchAll(PDO::FETCH_ASSOC);
                         value="Invite Friends"></a>
                 <a href="invited-people.php?id=<?= $result["event_id"] ?> "><input class="btn btn-outline-primary mb-3"
                         type="submit" name="checkInvitedPeople" value="Invited people"></a>
+                <a href="wishlist.php?id=<?= $result["event_id"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="wishlistBtn" value="Wishlist"></a>
                 <?php 
                 } else {
                     if(isAuthenticated()){
                         if ($joinedEventQuery->rowCount() == 0) {
                 ?>
-                <a
-                    href="assets/action/want-to-join-action.php?id=<?= $result["event_id"] ?>&email=<?= $_SESSION["user_email"] ?>"><input
-                        class="btn btn-outline-primary mb-3" type="submit" name="wantToJoin" value="Join party"></a>
+                <a href="assets/action/want-to-join-action.php?id=<?= $result["event_id"] ?>&email=<?= $_SESSION["user_email"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="wantToJoin" value="Join party"></a>
                 <?php   } else { ?>
                 <a
                     href="assets/action/unjoin-action.php?id=<?= $result["event_id"] ?>&email=<?= $_SESSION["user_email"] ?>"><input
                         class="btn btn-outline-danger mb-3" type="submit" name="unJoin" value="Quit party"></a>
+                <a href="wishlist.php?id=<?= $result["event_id"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="wishlistBtn" value="Wishlist"></a>
                 <?php     } ?>
                 <a href="invited-people.php?id=<?= $result["event_id"] ?> "><input class="btn btn-outline-primary mb-3"
                         type="submit" name="checkInvitedPeople" value="Invited people"></a>

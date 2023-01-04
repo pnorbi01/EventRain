@@ -82,14 +82,17 @@ $myInvitedEventResult = $myInvitedEventQuery->fetch();
                         class="btn btn-outline-primary mb-3" type="submit" name="modifyEvent" value="Modify Event"></a>
                 <a href="invite-friends-to-event.php?id=<?= $result["event_id"] ?>"><input class="btn btn-primary mb-3"
                         type="submit" name="inviteFriend" value="Invite Friends"></a>
+                <a href="wishlist.php?id=<?= $result["event_id"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="wishlistBtn" value="Wishlist"></a>
                 <?php 
                 } else {
                     if(isAuthenticated()){
                 ?>
-                <a href="change-my-status.php?id=<?= $eventId ?>&status=<?= $myInvitedEventResult["status"] ?>"><input class="btn btn-outline-primary" type="submit" name="changeMyStatus" value="Change my status"></a><br<br>
-                <a href="invited-people.php?id=<?= $eventId ?> "><input class="btn btn-outline-primary" type="submit" name="checkInvitedPeople" value="Invited people"></a><br>
-                <?php if($myInvitedEventResult["status"] == "in progress" || $myInvitedEventResult["status"] == "maybe comes") { ?>
-                <small style="color:#f00;">Your currently status is <strong><?= $myInvitedEventResult["status"] ?></strong>. Please let the organizer know if you
+                <a href="change-my-status.php?id=<?= $eventId ?>&status=<?= $myInvitedEventResult["status"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="changeMyStatus" value="Change my status"></a>
+                <a href="invited-people.php?id=<?= $eventId ?> "><input class="btn btn-outline-primary mb-3" type="submit" name="checkInvitedPeople" value="Invited people"></a>
+                <?php if($myInvitedEventResult["status"] == "accepted") { ?>
+                <a href="wishlist.php?id=<?= $result["event_id"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="wishlistBtn" value="Wishlist"></a>
+                <?php } if($myInvitedEventResult["status"] == "tentative") { ?>
+                <br><small style="color:#f00;">Your currently status is <strong><?= $myInvitedEventResult["status"] ?></strong>. Please let the organizer know if you
                     are coming or not!</small>
                 <?php
                         }

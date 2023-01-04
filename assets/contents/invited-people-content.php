@@ -40,48 +40,48 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
     <?php if ($query->rowCount() > 0){ ?>
-    <table class="table table-hover table-light">
-        <thead>
-            <tr>
-                <th scope="col">Profile picture</th>
-                <th scope="col">First and lastname</th>
-                <th scope="col">Status</th>
-                <?php if($organizerResult["user_id"] == $_SESSION["id_user"]) { ?>
-                <th scope="col">Option</th>
-                <?php } ?>
-            </tr>
-        </thead>
-        <tbody>
-            <?php 
+    <div class="divTable">
+        <table class="table table-hover infoTable table-dark table-striped text-center">
+            <thead>
+                <tr>
+                    <th scope="col">User</th>
+                    <th scope="col">Status</th>
+                    <?php if($organizerResult["user_id"] == $_SESSION["id_user"]) { ?>
+                    <th scope="col">Option</th>
+                    <?php } ?>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
                 foreach($results as $result){
         ?>
-            <tr>
-                <td><img src="assets/images/profile-pictures/<?= $result["image"] ?>" alt="Profile Picture" width="32"
-                        height="32" class="rounded-circle"></td>
-                <td><?= $result["lastname"] ." ". $result["firstname"] ?></td>
-                <td><?= $result["status"] ?></td>
-                <?php if($organizerResult["user_id"] == $_SESSION["id_user"]) { ?>
-                <form method="post" action="assets/action/delete-invited-friend-action.php">
-                    <input type="hidden" value="<?= $result["event_id"] ?>" name="eventId">
-                    <input type="hidden" value="<?= $result["email"] ?>" name="deletedFriendEmail">
-                    <th scope="col"><input type="submit" class="btn btn-outline-danger" name="deleteInvitedFriend" value="Delete"></th>
-                </form>
-                <?php } ?>
-            </tr>
-            <?php 
+                <tr>
+                    <td><img src="assets/images/profile-pictures/<?= $result["image"] ?>" alt="Profile Picture" width="32" height="32" class="rounded-circle"> <span><?= $result["lastname"] ." ". $result["firstname"] ?></span></td>
+                    <td><?= $result["status"] ?></td>
+                    <?php if($organizerResult["user_id"] == $_SESSION["id_user"]) { ?>
+                    <form method="post" action="assets/action/delete-invited-friend-action.php">
+                        <input type="hidden" value="<?= $result["event_id"] ?>" name="eventId">
+                        <input type="hidden" value="<?= $result["email"] ?>" name="deletedFriendEmail">
+                        <th scope="col"><input type="submit" class="btn btn-outline-danger" name="deleteInvitedFriend"
+                                value="Remove"></th>
+                    </form>
+                    <?php } ?>
+                </tr>
+                <?php 
                 }
             } else { ?>
-            <div class="list-group my-3 px-5">
-                <div class="d-flex w-100 justify-content-center">
-                    <h5 class="mb-2 text-center">Noone is invited to this event yet!</h5>
+                <div class="list-group my-3 px-5">
+                    <div class="d-flex w-100 justify-content-center">
+                        <h5 class="mb-2 text-center">No one is invited to this event yet!</h5>
+                    </div>
                 </div>
-            </div>
-            <?php } ?>
-        </tbody>
-    </table>
-    <?php
+                <?php } ?>
+            </tbody>
+        </table>
+        <?php
         if (isset($_GET['m']) and array_key_exists($_GET['m'], $messages[$page])) {
             echo '<div class="alert alert-' . $messages[$page][$_GET['m']]['style'] . ' alert-dismissible fade show" role="alert" id="message">' . $messages[$page][$_GET['m']]['text'] . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
         }
     ?>
+    </div>
 </div>

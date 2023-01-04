@@ -139,6 +139,13 @@ $messages = [
         1 => ['style' => 'success', 'text' => 'User has been deleted from this event successfully.'],
         2 => ['style' => 'danger', 'text' => 'Something went wrong, while deleting your friend, please try again.']
     ],
+    'wishlist.php' => [
+        1 => ['style' => 'success', 'text' => 'Gift has been reserved successfully.'],
+        2 => ['style' => 'success', 'text' => 'Gift has been removed successfully.'],
+        3 => ['style' => 'danger', 'text' => 'Something went wrong, while removing your gift, please try again.'],
+        4 => ['style' => 'danger', 'text' => 'Something went wrong, while reserving your gift, please try again.'],
+        5 => ['style' => 'danger', 'text' => 'You can not bring more than one gift.']
+    ],
 ];
 
 ?>
