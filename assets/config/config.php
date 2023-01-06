@@ -43,7 +43,8 @@ $titles = [
     'selected-invited-event.php' => 'More Info About Invited Event',
     'change-my-status.php' => 'Changing My Status',
     'invited-people.php' => 'Invited People',
-    'wishlist.php' => 'Wishlist'
+    'wishlist.php' => 'Wishlist',
+    'my-reserved-gifts.php' => 'My Reserved Gifts'
 ]; 
 
 $messages = [
@@ -128,7 +129,8 @@ $messages = [
     ],
     'manage-events.php' => [
         1 => ['style' => 'success', 'text' => 'Event has been inactivated successfully.'],
-        2 => ['style' => 'success', 'text' => 'Event has been activated successfully.']
+        2 => ['style' => 'success', 'text' => 'Event has been activated successfully.'],
+        3 => ['style' => 'success', 'text' => 'Event has been deleted successfully, email sent to organizer.']
     ],
     'change-my-status.php' => [
         1 => ['style' => 'success', 'text' => 'Your status has been changed successfully.'],
@@ -145,6 +147,9 @@ $messages = [
         3 => ['style' => 'danger', 'text' => 'Something went wrong, while removing your gift, please try again.'],
         4 => ['style' => 'danger', 'text' => 'Something went wrong, while reserving your gift, please try again.'],
         5 => ['style' => 'danger', 'text' => 'You can not bring more than one gift.']
+    ],
+    'manage-gifts.php' => [
+        1 => ['style' => 'success', 'text' => 'Gift has been deleted successfully, email sent to organizer.']
     ],
 ];
 

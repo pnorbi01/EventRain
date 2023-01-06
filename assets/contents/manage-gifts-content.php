@@ -15,29 +15,23 @@
         </ol>
     </nav>
 
-    <table id="manageUsers" class="table table-hover display" style="width:100%">
+    <table id="manageGifts" class="table table-hover display" style="width:100%">
         <thead>
         <tr>
             <th>No</th>
-            <th>Username</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
-            <th>Level</th>
-            <th>Active</th>
-            <th>Options</th>
+            <th>Event's Name</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Option</th>
         </tr>
         </thead>
         <tfoot>
         <tr>
             <th>No</th>
-            <th>Username</th>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Email</th>
-            <th>Level</th>
-            <th>Active</th>
-            <th>Options</th>
+            <th>Event's Name</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Option</th>
         </tr>
         </tfoot>
     </table><br>

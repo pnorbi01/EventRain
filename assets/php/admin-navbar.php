@@ -24,6 +24,7 @@ if ($query->rowCount() == 1) {
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="index.php" class="nav-link px-2 link-secondary">Home</a></li>
                 <li><a href="events.php" class="nav-link px-2 link-dark">Events</a></li>
+                <li><a href="my-reserved-gifts.php" class="nav-link px-2 link-dark">My Gifts</a></li>
             </ul>
 
             <div class="dropdown text-end">

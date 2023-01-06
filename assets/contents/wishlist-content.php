@@ -34,6 +34,8 @@ $creatorQuery->bindParam(':id', $eventId, PDO::PARAM_INT);
 $creatorQuery->execute();
 $creatorResult = $creatorQuery->fetch();
 
+$eventClose = date('Y-m-d h:i', strtotime($creatorResult["event_close"]));
+
 $userSql = "SELECT * FROM users, events WHERE events.event_id = :event_id AND users.user_id = :user_id";
 $userQuery = $pdo->prepare($userSql);
 $userQuery->bindParam(':user_id', $_SESSION["id_user"], PDO::PARAM_INT);
@@ -97,10 +99,14 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                 <?php
                         }
                     } 
-                    else { ?>
-                <a href="assets/action/remove-gift-action.php?id=<?= $result["gift_id"] ?>&event_id=<?= $eventId ?>"
-                    class="btn btn-danger">Remove gift</a>
+                    else { 
+                            if(date('Y-m-d h:i') < $eventClose) { ?>
+                <a href="assets/action/remove-gift-action.php?id=<?= $result["gift_id"] ?>&event_id=<?= $eventId ?>" class="btn btn-danger">Remove gift</a>
                 <?php 
+                            } else { ?>
+                <input type="submit" value="Remove gift" disabled>
+                    <?php
+                            }
                     } ?>
             </div>
         </div>

@@ -250,6 +250,25 @@ function sendFriendInvitationReminder($email, $eventName)
     return sendMail($email, "Event Invitation Reminder", $body);
 }
 
+function sendDeletedEventEmail($email, $eventName, $organizer)
+{
+    $body = "Dear, <strong>$organizer</strong>";
+    $body .= "<br><br>Your event has been deleted permanently, because it was against our rules!";
+    $body .= "<br>Deleted event: <strong>$eventName</strong>";
+    $body .= "<br><br>If you do not agree please contact our Support!";
+    return sendMail($email, "Deleted Event", $body);
+}
+
+function sendDeletedGiftEmail($email, $eventName, $organizer, $gift)
+{
+    $body = "Dear, <strong>$organizer</strong>";
+    $body .= "<br><br>Your gift (<strong>$gift</strong>) has been deleted permanently from event (<strong>$eventName</strong>)!";
+    $body .= "<br>Our Support came to this decision, because your gift was against our rules!";
+    $body .= "<br><br>If you do not agree please contact our Support!";
+    return sendMail($email, "Deleted Gift", $body);
+}
+
+
 function deleteToken($token) {
     global $dsn, $pdoOptions;
     $pdo = connectDatabase($dsn, $pdoOptions);
@@ -350,6 +369,65 @@ function setActive($event_id) {
 
     if ($query->rowCount() == 1) {
         echo "manage-events.php?m=2";
+    }
+}
+
+function deleteEvent($event_id) {
+    global $dsn, $pdoOptions;
+    $pdo = connectDatabase($dsn, $pdoOptions);
+
+    $selectedEventSql = "SELECT * FROM events, users WHERE events.event_id = :id AND events.user_id = users.user_id";
+
+    $selectedEventQuery = $pdo->prepare($selectedEventSql);
+    $selectedEventQuery->bindParam(':id', $event_id, PDO::PARAM_INT);
+    $selectedEventQuery->execute();
+    $selectedEventResult = $selectedEventQuery->fetch();
+
+    if ($selectedEventQuery->rowCount() == 1) {
+        $eventName = $selectedEventResult["event_name"];
+        $organizer = $selectedEventResult["username"];
+        $email = $selectedEventResult["email"];
+    }
+
+    $sql = "DELETE FROM events WHERE event_id = :event_id";
+
+    $query = $pdo->prepare($sql);
+    $query->bindParam(':event_id', $event_id, PDO::PARAM_INT);
+    $query->execute();
+
+    if ($query->rowCount() > 0) {
+        sendDeletedEventEmail($email, $eventName, $organizer);
+        echo "manage-events.php?m=3";
+    }
+}
+
+function deleteGift($gift_id) {
+    global $dsn, $pdoOptions;
+    $pdo = connectDatabase($dsn, $pdoOptions);
+
+    $selectedGiftSql = "SELECT * FROM gifts, events, users WHERE gifts.gift_id = :id AND gifts.event_id = events.event_id AND events.user_id = users.user_id";
+
+    $selectedGiftQuery = $pdo->prepare($selectedGiftSql);
+    $selectedGiftQuery->bindParam(':id', $gift_id, PDO::PARAM_INT);
+    $selectedGiftQuery->execute();
+    $selectedGiftResult = $selectedGiftQuery->fetch();
+
+    if ($selectedGiftQuery->rowCount() == 1) {
+        $gift = $selectedGiftResult["name"];
+        $eventName = $selectedGiftResult["event_name"];
+        $email = $selectedGiftResult["email"];
+        $organizer = $selectedGiftResult["username"];
+    }
+
+    $sql = "DELETE FROM gifts WHERE gift_id = :gift_id";
+
+    $query = $pdo->prepare($sql);
+    $query->bindParam(':gift_id', $gift_id, PDO::PARAM_INT);
+    $query->execute();
+
+    if ($query->rowCount() > 0) {
+        echo "manage-gifts.php?m=1";
+        sendDeletedGiftEmail($email, $eventName, $organizer, $gift);
     }
 }
 

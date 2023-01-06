@@ -17,13 +17,13 @@ $number = 1;
 if ($query->rowCount() > 0){
     foreach($results as $result){
         if($result["event_active"] == "active"){
-            $data[] = [$number, $result['event_name'], $result['event_type'], $result['event_status'], $result['event_location'], $result['event_street'], $result['event_start'], $result['event_active'],
-                '<i class="bi bi-x-lg setInactive text-danger" data-id="'.$result['event_id'].'" data-name="'.$result['event_name'].'" title="Set Inactive"></i>'
+            $data[] = [$number, $result['event_name'], $result['event_type'], $result['event_status'], $result['event_location'], $result['event_street'], $result['event_start'], $result["event_close"], $result['event_active'],
+                '<i class="bi bi-x-lg setInactive text-danger" data-id="'.$result['event_id'].'" data-name="'.$result['event_name'].'" title="Set Inactive"></i>&nbsp&nbsp<i class="bi bi-trash3 deleteEvent text-danger" data-id="'.$result['event_id'].'" data-name="'.$result['event_name'].'" title="Delete Event"></i>'
             ];
         }
             else {
-                $data[] = [$number, $result['event_name'], $result['event_type'], $result['event_status'], $result['event_location'], $result['event_street'], $result['event_start'], $result['event_active'], 
-                    '<i class="bi bi-check2 setActive text-success" data-id="'.$result['event_id'].'" data-name="'.$result['event_name'].'" title="Set Active"></i>'
+                $data[] = [$number, $result['event_name'], $result['event_type'], $result['event_status'], $result['event_location'], $result['event_street'], $result['event_start'], $result["event_close"], $result['event_active'], 
+                    '<i class="bi bi-check2 setActive text-success" data-id="'.$result['event_id'].'" data-name="'.$result['event_name'].'" title="Set Active"></i>&nbsp&nbsp<i class="bi bi-trash3 deleteEvent text-danger" data-id="'.$result['event_id'].'" data-name="'.$result['event_name'].'" title="Delete Event"></i>'
                 ];
             }
         $number++;

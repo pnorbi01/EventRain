@@ -52,6 +52,32 @@ $(document).ready(function(){
         }
     })
 
+    $('body').on('click', '.deleteEvent', function() {
+        var id = $(this).data('id');
+        let name = $(this).data('name');
+        let answer = confirm('Do you want to DELETE event with name '+name+'?');
+        if(answer) {
+            $.post('assets/ajax/deleteEvent.php', { id: id}, function (data) {
+                window.location.href = data;
+            });
+        }
+    })
+
+    $('#manageGifts').DataTable({
+        ajax: 'assets/ajax/getGifts.php',
+    });
+
+    $('body').on('click', '.deleteGift', function() {
+        var id = $(this).data('id');
+        let name = $(this).data('name');
+        let answer = confirm('Do you want to DELETE gift with name '+name+'?');
+        if(answer) {
+            $.post('assets/ajax/deleteGift.php', { id: id}, function (data) {
+                window.location.href = data;
+            });
+        }
+    })
+
 
     $('body').on('click', '.addName', function () {
         let html = ' ' +

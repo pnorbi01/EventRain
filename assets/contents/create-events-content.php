@@ -62,9 +62,14 @@ $max = $maxdate."T".$maxtime;
                             <label for="eventStreet" class="form-label">Event's Street</label>
                         </div>
                         <div class="col-md-6">
-                            <label for="eventStart">Pick the start of your event</label><br>
+                            <label for="eventStart">Pick the start of your event<span style="color:#f00;">*</span></label><br>
                             <input type="datetime-local" id="eventStart" class="form-control" value="<?php echo $min ?>"
-                                name="eventStart" min="<?php echo $min ?>" max="<?php echo $max ?>">
+                                name="eventStart" min="<?php echo $min ?>" max="<?php echo $max ?>" required>
+                        </div><br>
+                        <div class="col-md-6">
+                            <label for="eventClose">Pick the close of your event<span style="color:#f00;">*</span></label><br>
+                            <input type="datetime-local" id="eventClose" class="form-control" value="<?php echo $min ?>"
+                                name="eventClose" min="<?php echo $min ?>" max="<?php echo $max ?>" required>
                         </div>
                         <div class="col-md-8 mt-3">
                             <small style="color: #f00;">You can add gifts below to your event if you want!</small><br>

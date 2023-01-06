@@ -67,10 +67,20 @@ $myInvitedEventResult = $myInvitedEventQuery->fetch();
                 </div>
                 <p class="mb-1"><?= $result["event_type"] ?></p>
                 <small><?= $result["event_location"] ?>, <?= $result["event_street"] ?></small><br><br>
-                <small><i class="bi bi-calendar-check-fill"></i> Event created at:
-                    <strong><?= $result["date_time"] ?></strong></small><br>
-                <small><i class="bi bi-clock-fill"></i> Event starts at:
-                    <strong><?= $result["event_start"] ?></strong></small><br>
+                <small><i class="bi bi-calendar-check-fill"></i> Event created at: <strong><?= $result["date_time"] ?></strong></small><br>
+                <small><i class="bi bi-clock-fill"></i> Event starts at: <strong><?= $result["event_start"] ?></strong></small><br>
+                <?php 
+                $eventClose = date('Y-m-d h:i', strtotime($result["event_close"]));
+                ?>
+                <small><i class="bi bi-door-open-fill"></i> Event closes at: 
+                    <strong>
+                        <?php if(date('Y-m-d h:i') < $eventClose) { ?>
+                        <?= $eventClose ?>
+                        <?php } else { ?>
+                        <span style="color:#f00;"><strong>CLOSED</strong></span>
+                        <?php } ?>
+                    </strong>
+                </small><br>
                 <small><i class="bi bi-person-fill"></i> Event created by:
                     <strong><?= $creatorResult["username"] ?></strong></small><br><br>
                 <?php if($result["user_id"] == $_SESSION["id_user"]){ ?>
@@ -78,23 +88,33 @@ $myInvitedEventResult = $myInvitedEventQuery->fetch();
                     <input type="hidden" name="eventId" value="<?= $result["event_id"] ?>">
                     <input class="btn btn-outline-danger" type="submit" name="deleteEvent" value="Delete Current Event">
                 </form>
+                <?php if(date('Y-m-d h:i') < $eventClose) { ?>
                 <a href="modify-selected-event.php?id=<?= $result["event_id"] ?>"><input
                         class="btn btn-outline-primary mb-3" type="submit" name="modifyEvent" value="Modify Event"></a>
                 <a href="invite-friends-to-event.php?id=<?= $result["event_id"] ?>"><input class="btn btn-primary mb-3"
                         type="submit" name="inviteFriend" value="Invite Friends"></a>
+                <?php } ?>
                 <a href="wishlist.php?id=<?= $result["event_id"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="wishlistBtn" value="Wishlist"></a>
                 <?php 
                 } else {
                     if(isAuthenticated()){
+                        if(date('Y-m-d h:i') < $eventClose) {
                 ?>
                 <a href="change-my-status.php?id=<?= $eventId ?>&status=<?= $myInvitedEventResult["status"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="changeMyStatus" value="Change my status"></a>
+                <?php   } ?>
                 <a href="invited-people.php?id=<?= $eventId ?> "><input class="btn btn-outline-primary mb-3" type="submit" name="checkInvitedPeople" value="Invited people"></a>
-                <?php if($myInvitedEventResult["status"] == "accepted") { ?>
+                <?php if($myInvitedEventResult["status"] == "accepted") { 
+                        if(date('Y-m-d h:i') < $eventClose) { ?>
                 <a href="wishlist.php?id=<?= $result["event_id"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="wishlistBtn" value="Wishlist"></a>
-                <?php } if($myInvitedEventResult["status"] == "tentative") { ?>
+                <?php
+                        } 
+                    } 
+                        if($myInvitedEventResult["status"] == "tentative") { 
+                            if(date('Y-m-d h:i') < $eventClose) { ?>
                 <br><small style="color:#f00;">Your currently status is <strong><?= $myInvitedEventResult["status"] ?></strong>. Please let the organizer know if you
                     are coming or not!</small>
                 <?php
+                            }
                         }
                     } else { ?>
                 <a href="login.php"><button type="button" class="btn btn-primary me-2">Please, Log-In
