@@ -15,7 +15,8 @@
                             echo '<div class="alert alert-' . $messages[$page][$_GET['m']]['style'] . ' alert-dismissible fade show" role="alert" id="message">' . $messages[$page][$_GET['m']]['text'] . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                         }
                     ?>
-                    <form method="post" id="login" action="./assets/config/web.php">
+                    <div class="alert alert-danger" role="alert" style="display: none"></div>
+                    <form method="post" id="login" name="loginForm" action="./assets/config/web.php" onsubmit="return validateForm()">
                         <div class="form-floating mb-3 required">
                             <input type="text" class="form-control" name="username" id="floatingInput" placeholder="name@example.com" autofocus>
                             <label for="floatingInput" class="form-label">Username</label>
@@ -41,3 +42,21 @@
         </div>
     </section>
 </div>
+<script>
+function validateForm() {
+  let form = document.forms["loginForm"];
+  let username = form["username"].value;
+  let password = form["password"].value;
+  if (username.length <= 0) {
+    $('.alert').css("display", "block");
+    $('.alert').html("Username must be filled out");
+    return false;
+  }
+  if (password.length <= 0) {
+    $('.alert').css("display", "block");
+    $('.alert').html("Password must be filled out");
+    return false;
+  }
+  return true;
+}
+</script>

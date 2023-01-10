@@ -41,11 +41,14 @@ if ($query->rowCount() == 1) {
                                 echo '<div class="alert alert-' . $messages[$page][$_GET['m']]['style'] . ' alert-dismissible fade show" role="alert" id="message">' . $messages[$page][$_GET['m']]['text'] . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                             }
                         ?>
-                    <form method="post" action="assets/action/invite-friends-to-event-action.php">
+                    <div class="alert alert-danger" role="alert" style="display: none"></div>
+                    <form method="post" name="inviteFriendForm" onsubmit="return validateForm()"
+                        action="assets/action/invite-friends-to-event-action.php">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" name="eventType" id="eventType"
                                 placeholder="name@example.com" autofocus disabled>
-                            <label for="eventType" class="form-label">Selected event: <?= $result["event_name"] ?></label>
+                            <label for="eventType" class="form-label">Selected event:
+                                <?= $result["event_name"] ?></label>
                         </div>
                         <div class="form-floating mb-3 required">
                             <input type="email" class="form-control" name="firendEmail" id="firendEmail"
@@ -63,3 +66,21 @@ if ($query->rowCount() == 1) {
         </div>
     </section>
 </div>
+<script>
+function validateForm() {
+    let form = document.forms["inviteFriendForm"];
+    let email = form["firendEmail"].value;
+    var mailformat =  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (!email.value.match(mailformat)) {
+        $('.alert').css("display", "block");
+        $('.alert').html("The entered email is not valid!");
+        return false;
+    }
+    if (email.length <= 0) {
+        $('.alert').css("display", "block");
+        $('.alert').html("Email must be filled out");
+        return false;
+    }
+    return true;
+}
+</script>

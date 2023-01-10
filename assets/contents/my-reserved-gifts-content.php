@@ -44,6 +44,14 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <?php 
             }
+        } else {
+        ?>
+        <div class="list-group my-3 px-5">
+            <div class="d-flex w-100 justify-content-center">
+                <h5 class="mb-2 text-center">You did not select any gift yet!</h5>
+            </div>
+        </div>
+        <?php
         }
         ?>
     </div>

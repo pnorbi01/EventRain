@@ -38,10 +38,11 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
         <div class="d-flex w-100 justify-content-center">
             <h3 class="mb-2 text-center">People who are invited to this event</h3>
         </div>
+        <input class="form-control mr-sm-2" id="searchInput" onkeyup="searchFunction()" type="search" placeholder="Search" aria-label="Search">
     </div>
     <?php if ($query->rowCount() > 0){ ?>
     <div class="divTable">
-        <table class="table table-hover infoTable table-dark table-striped text-center">
+        <table class="table table-hover text-center" id="invitedPeopleTable">
             <thead>
                 <tr>
                     <th scope="col">User</th>
@@ -56,7 +57,9 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                 foreach($results as $result){
         ?>
                 <tr>
-                    <td><img src="assets/images/profile-pictures/<?= $result["image"] ?>" alt="Profile Picture" width="32" height="32" class="rounded-circle"> <span><?= $result["lastname"] ." ". $result["firstname"] ?></span></td>
+                    <td><img src="assets/images/profile-pictures/<?= $result["image"] ?>" alt="Profile Picture"
+                            width="32" height="32" class="rounded-circle">
+                        <span><?= $result["lastname"] ." ". $result["firstname"] ?></span></td>
                     <td><?= $result["status"] ?></td>
                     <?php if($organizerResult["user_id"] == $_SESSION["id_user"]) { ?>
                     <form method="post" action="assets/action/delete-invited-friend-action.php">
@@ -85,3 +88,4 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
     ?>
     </div>
 </div>
+<script type = "text/javascript" src="assets/js/script.js"></script> 

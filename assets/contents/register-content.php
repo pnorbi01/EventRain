@@ -16,7 +16,8 @@
                         echo '<div class="alert alert-' . $messages[$page][$_GET['m']]['style'] . ' alert-dismissible fade show" role="alert" id="message">' . $messages[$page][$_GET['m']]['text'] . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                     }
                 ?>
-                <form method="post" action="./assets/config/web.php">
+                <div class="alert alert-danger" role="alert" style="display: none"></div>
+                <form method="post" name="registerForm" onsubmit="return validateForm()" action="./assets/config/web.php">
                     <div class="form-floating mb-3 required">
                         <input type="text" class="form-control" name="username" id="username" placeholder="name@example.com" autofocus>
                         <label for="username" class="form-label">Username</label>
@@ -51,3 +52,60 @@
     </div>
 </section>
 </div>
+<script>
+function validateForm() {
+  let form = document.forms["registerForm"];
+  let username = form["username"].value;
+  let firstname = form["firstname"].value;
+  let lastname = form["lastname"].value;
+  let email = form["email"].value;
+  let password = form["password"].value;
+  let passwordConfirm = form["passwordConfirm"].value;
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (username.length <= 0) {
+    $('.alert').css("display", "block");
+    $('.alert').html("Username must be filled out!");
+    document.getElementsByClassName('breadcrumb')[0].scrollIntoView();
+    return false;
+  }
+  if (firstname.length <= 0) {
+    $('.alert').css("display", "block");
+    $('.alert').html("Firstname must be filled out!");
+    document.getElementsByClassName('breadcrumb')[0].scrollIntoView();
+    return false;
+  }
+  if (lastname.length <= 0) {
+    $('.alert').css("display", "block");
+    $('.alert').html("Lastname must be filled out!");
+    document.getElementsByClassName('breadcrumb')[0].scrollIntoView();
+    return false;
+  }
+  if (!validateEmail(email)){
+    $('.alert').css("display", "block");
+    $('.alert').html("Invalid email address!");
+    document.getElementsByClassName('breadcrumb')[0].scrollIntoView();
+    return false;
+  }
+  if (password.length < 7) {
+    $('.alert').css("display", "block");
+    $('.alert').html("Password must contain 7 characters atleast!");
+    document.getElementsByClassName('breadcrumb')[0].scrollIntoView();
+    return false;
+  }
+  if (password != passwordConfirm) {
+    $('.alert').css("display", "block");
+    $('.alert').html("Passwords do not match!");
+    document.getElementsByClassName('breadcrumb')[0].scrollIntoView();
+    return false;
+  }
+  return true;
+}
+
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+</script>

@@ -6,7 +6,7 @@ $maxdate = date("Y-m-d", strtotime("+2 years"));
 $maxtime = date("h:i");
 $max = $maxdate."T".$maxtime;
 ?>
-<div class="container ">
+<div class="container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.php" class="link-dark">Home</a></li>
@@ -25,7 +25,9 @@ $max = $maxdate."T".$maxtime;
                                 echo '<div class="alert alert-' . $messages[$page][$_GET['m']]['style'] . ' alert-dismissible fade show" role="alert" id="message">' . $messages[$page][$_GET['m']]['text'] . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                             }
                         ?>
-                    <form method="post" action="assets/action/create-events-action.php">
+                    <div class="alert alert-danger" role="alert" style="display: none"></div>
+                    <form method="post" name="createEventForm" onsubmit="return validateForm()"
+                        action="assets/action/create-events-action.php">
                         <div class="form-floating mb-3 required">
                             <input type="text" class="form-control" name="eventType" id="eventType"
                                 placeholder="name@example.com" autofocus>
@@ -62,12 +64,14 @@ $max = $maxdate."T".$maxtime;
                             <label for="eventStreet" class="form-label">Event's Street</label>
                         </div>
                         <div class="col-md-6">
-                            <label for="eventStart">Pick the start of your event<span style="color:#f00;">*</span></label><br>
+                            <label for="eventStart">When is your event?<span
+                                    style="color:#f00;">*</span></label><br>
                             <input type="datetime-local" id="eventStart" class="form-control" value="<?php echo $min ?>"
                                 name="eventStart" min="<?php echo $min ?>" max="<?php echo $max ?>" required>
                         </div><br>
                         <div class="col-md-6">
-                            <label for="eventClose">Pick the close of your event<span style="color:#f00;">*</span></label><br>
+                            <label for="eventClose">When is the application deadline?<span
+                                    style="color:#f00;">*</span></label><br>
                             <input type="datetime-local" id="eventClose" class="form-control" value="<?php echo $min ?>"
                                 name="eventClose" min="<?php echo $min ?>" max="<?php echo $max ?>" required>
                         </div>
@@ -95,4 +99,51 @@ $max = $maxdate."T".$maxtime;
         </div>
     </section>
 </div>
-<script type = "text/javascript" src="assets/js/script.js"></script>  
+<script type="text/javascript" src="assets/js/script.js"></script>
+<script>
+function validateForm() {
+    Date.prototype.extractHours = function(h) {
+        this.setTime(this.getTime() - (h*60*60*1000));
+        return this;
+    }
+    let form = document.forms["createEventForm"];
+    let name = form["eventName"].value;
+    let location = form["eventLocation"].value;
+    let street = form["eventStreet"].value;
+    let start = new Date(form["eventStart"].value);
+    let close = new Date(form["eventClose"].value);
+    const today = new Date()
+    if (name.length <= 0) {
+        $('.alert').css("display", "block");
+        $('.alert').html("Name must be filled out!");
+        document.getElementsByClassName('breadcrumb')[0].scrollIntoView();
+        return false;
+    }
+    if (location.length <= 0) {
+        $('.alert').css("display", "block");
+        $('.alert').html("Location must be filled out!");
+        document.getElementsByClassName('breadcrumb')[0].scrollIntoView();
+        return false;
+    }
+    if (street.length <= 0) {
+        $('.alert').css("display", "block");
+        $('.alert').html("Street must be filled out!");
+        document.getElementsByClassName('breadcrumb')[0].scrollIntoView();
+        return false;
+    }
+    if (start < today) {
+        $('.alert').css("display", "block");
+        $('.alert').html("Your event start date is not valid!");
+        document.getElementsByClassName('breadcrumb')[0].scrollIntoView();
+        return false;
+    }
+    if (close > start) {
+        $('.alert').css("display", "block");
+        $('.alert').html("The application deadline must be less than the start of event!");
+        document.getElementsByClassName('breadcrumb')[0].scrollIntoView();
+        return false;
+    }
+    return true;
+}
+
+</script>
