@@ -45,7 +45,8 @@ if ($query->rowCount() == 1) {
                                 echo '<div class="alert alert-' . $messages[$page][$_GET['m']]['style'] . ' alert-dismissible fade show" role="alert" id="message">' . $messages[$page][$_GET['m']]['text'] . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
                             }
                         ?>
-                    <form method="post" action="assets/action/modify-selected-event-action.php">
+                    <div class="alert alert-danger" role="alert" style="display: none"></div>
+                    <form method="post" name="modifyEventForm" onsubmit="return validateForm()" action="assets/action/modify-selected-event-action.php">
                         <div class="form-floating mb-3 required">
                             <input type="text" class="form-control" name="eventType" id="eventType"
                                 placeholder="name@example.com" autofocus value="<?= $result["event_type"] ?>">
@@ -92,3 +93,37 @@ if ($query->rowCount() == 1) {
         </div>
     </section>
 </div>
+<script>
+function validateForm() {
+  let form = document.forms["modifyEventForm"];
+  let type = form["eventType"].value;
+  let name = form["eventName"].value;
+  let location = form["eventLocation"].value;
+  let street = form["eventStreet"].value;
+  if (type.length <= 0) {
+    $('.alert').css("display", "block");
+    $('.alert').html("Type must be filled out!");
+    document.getElementsByClassName('breadcrumb')[0].scrollIntoView();
+    return false;
+  }
+  if (name.length <= 0) {
+    $('.alert').css("display", "block");
+    $('.alert').html("Name must be filled out!");
+    document.getElementsByClassName('breadcrumb')[0].scrollIntoView();
+    return false;
+  }
+  if (location.length <= 0) {
+    $('.alert').css("display", "block");
+    $('.alert').html("Location must be filled out!");
+    document.getElementsByClassName('breadcrumb')[0].scrollIntoView();
+    return false;
+  }
+  if (street.length <= 0) {
+    $('.alert').css("display", "block");
+    $('.alert').html("Street must be filled out!");
+    document.getElementsByClassName('breadcrumb')[0].scrollIntoView();
+    return false;
+  }
+  return true;
+}
+</script>

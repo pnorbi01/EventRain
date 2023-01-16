@@ -75,7 +75,7 @@ function validateForm() {
     let form = document.forms["inviteFriendForm"];
     let email = form["firendEmail"].value;
     var mailformat =  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (!email.value.match(mailformat)) {
+    if (!validateEmail(email)) {
         $('.alert').css("display", "block");
         $('.alert').html("The entered email is not valid!");
         return false;
@@ -87,4 +87,12 @@ function validateForm() {
     }
     return true;
 }
+
+const validateEmail = (email) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
 </script>

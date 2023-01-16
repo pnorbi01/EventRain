@@ -107,12 +107,19 @@ function validateForm() {
         return this;
     }
     let form = document.forms["createEventForm"];
+    let type = form["eventType"].value;
     let name = form["eventName"].value;
     let location = form["eventLocation"].value;
     let street = form["eventStreet"].value;
     let start = new Date(form["eventStart"].value);
     let close = new Date(form["eventClose"].value);
     const today = new Date()
+    if (type.length <= 0) {
+        $('.alert').css("display", "block");
+        $('.alert').html("Type must be filled out!");
+        document.getElementsByClassName('breadcrumb')[0].scrollIntoView();
+        return false;
+    }
     if (name.length <= 0) {
         $('.alert').css("display", "block");
         $('.alert').html("Name must be filled out!");

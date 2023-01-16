@@ -10,7 +10,8 @@
             <div class="row d-flex align-items-center justify-content-center h-100">
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
                     <h1 class="display-5 fw-bold lh-1 mb-3 text-center" style="color: cornflowerblue;">Setting Up New Password</h1>
-                    <form method="post" action="assets/action/setting-new-password-action.php">
+                    <div class="alert alert-danger" role="alert" style="display: none"></div>
+                    <form method="post" name="newPasswordForm" onsubmit="return validateForm()" action="assets/action/setting-new-password-action.php">
                     <div class="form-floating mb-3 required">
                         <input type="password" class="form-control" name="firstPassword" id="firstPassword" placeholder="name@example.com" autofocus>
                         <label for="firstPassword" class="form-label">Password</label>
@@ -35,3 +36,31 @@
         </div>
     </section>
 </div>
+<script>
+function validateForm() {
+  let form = document.forms["newPasswordForm"];
+  let firstPassword = form["firstPassword"].value;
+  let secondPassword = form["secondPassword"].value;
+  if (firstPassword.length <= 0) {
+    $('.alert').css("display", "block");
+    $('.alert').html("First password must be filled out!");
+    return false;
+  }
+  if (secondPassword.length <= 0) {
+    $('.alert').css("display", "block");
+    $('.alert').html("Second password must be filled out!");
+    return false;
+  }
+  if (firstPassword.length < 7) {
+    $('.alert').css("display", "block");
+    $('.alert').html("Password must be at least 7 characters long!");
+    return false;
+  }
+  if (firstPassword != secondPassword) {
+    $('.alert').css("display", "block");
+    $('.alert').html("Entered passwords do not match!");
+    return false;
+  }
+  return true;
+}
+</script>
