@@ -36,9 +36,9 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                 </p>
                 <span class="text-center">If you want to exchange your gift please find this event's profile before it closes!</span><br><br>
                 <?php if(date('Y-m-d h:i') < $eventClose) { ?>
-                    <span class="text-center" style="color:#228B22;"><strong>Event is OPEN</strong></span>
+                    <span class="text-center text-muted"><strong>Event is OPEN</strong></span>
                 <?php } else { ?>
-                    <span class="text-center" style="color:#f00;"><strong>Event is CLOSED</strong></span>
+                    <span class="text-center text-muted"><strong>Event is CLOSED</strong></span>
                 <?php } ?>
             </div>
         </div>

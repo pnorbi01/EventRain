@@ -111,8 +111,9 @@ $messages = [
         5 => ['style' => 'danger', 'text' => 'Something went wrong, while updating event, please try again.'],
         6 => ['style' => 'success', 'text' => 'You joined the party successfully.'],
         7 => ['style' => 'danger', 'text' => 'Something went wrong, while joining party, please try again.'],
-        8 => ['style' => 'success', 'text' => 'You quitted the party successfully..'],
+        8 => ['style' => 'success', 'text' => 'You quitted the party successfully, and your reserved gift has been released.'],
         9 => ['style' => 'danger', 'text' => 'Something went wrong, while quiting party, please try again.'],
+        10 => ['style' => 'success', 'text' => 'Your status has been changed successfully.'],
     ],
     'invite-friends-to-event.php' => [
         1 => ['style' => 'success', 'text' => 'You have invited your friend successfully.'],
@@ -133,12 +134,11 @@ $messages = [
         3 => ['style' => 'success', 'text' => 'Event has been deleted successfully, email sent to organizer.']
     ],
     'change-my-status.php' => [
-        1 => ['style' => 'success', 'text' => 'Your status has been changed successfully.'],
-        2 => ['style' => 'danger', 'text' => 'No change has been made.'],
-        3 => ['style' => 'danger', 'text' => 'Something went wrong, while updating your status, please try again.']
+        1 => ['style' => 'danger', 'text' => 'No change has been made.'],
+        2 => ['style' => 'danger', 'text' => 'Something went wrong, while updating your status, please try again.']
     ],
     'invited-people.php' => [
-        1 => ['style' => 'success', 'text' => 'User has been deleted from this event successfully.'],
+        1 => ['style' => 'success', 'text' => 'User has been deleted and his gift has been released successfully.'],
         2 => ['style' => 'danger', 'text' => 'Something went wrong, while deleting your friend, please try again.']
     ],
     'wishlist.php' => [
@@ -146,11 +146,15 @@ $messages = [
         2 => ['style' => 'success', 'text' => 'Gift has been removed successfully.'],
         3 => ['style' => 'danger', 'text' => 'Something went wrong, while removing your gift, please try again.'],
         4 => ['style' => 'danger', 'text' => 'Something went wrong, while reserving your gift, please try again.'],
-        5 => ['style' => 'danger', 'text' => 'You can not bring more than one gift.']
+        5 => ['style' => 'danger', 'text' => 'You can not bring more than one gift.'],
+        6 => ['style' => 'success', 'text' => 'Comment has been posted successfully.'],
+        7 => ['style' => 'danger', 'text' => 'Something went wrong, while posting your comment, please try again.'],
+        8 => ['style' => 'success', 'text' => 'Comment has been deleted successfully.'],
+        9 => ['style' => 'danger', 'text' => 'Something went wrong, while deleting your comment, please try again.']
     ],
     'manage-gifts.php' => [
         1 => ['style' => 'success', 'text' => 'Gift has been deleted successfully, email sent to organizer.']
-    ],
+    ]
 ];
 
 ?>

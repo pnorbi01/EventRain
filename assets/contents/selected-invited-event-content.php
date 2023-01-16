@@ -67,14 +67,14 @@ $myInvitedEventResult = $myInvitedEventQuery->fetch();
                 </div>
                 <p class="mb-1"><?= $result["event_type"] ?></p>
                 <small><?= $result["event_location"] ?>, <?= $result["event_street"] ?></small><br><br>
-                <small><i class="bi bi-calendar-check-fill"></i> Event created at: <strong><?= $result["date_time"] ?></strong></small><br>
-                <small><i class="bi bi-clock-fill"></i> Event starts at: <strong><?= $result["event_start"] ?></strong></small><br>
+                <small><i class="bi bi-calendar-check-fill"></i> Event created at: <strong><?php echo date("F j, Y, g:i A", strtotime($result["date_time"])); ?></strong></small><br>
+                <small><i class="bi bi-clock-fill"></i> Event starts at: <strong><?php echo date("F j, Y, g:i A", strtotime($result["event_start"])); ?></strong></small><br>
                 <?php 
-                $eventClose = date('Y-m-d h:i', strtotime($result["event_close"]));
+                $eventClose = date('F j, Y, g:i A', strtotime($result["event_close"]));
                 ?>
                 <small><i class="bi bi-door-open-fill"></i> Event closes at: 
                     <strong>
-                        <?php if(date('Y-m-d h:i') < $eventClose) { ?>
+                        <?php if(date('F j, Y, g:i A') < $eventClose) { ?>
                         <?= $eventClose ?>
                         <?php } else { ?>
                         <span style="color:#f00;"><strong>CLOSED</strong></span>
@@ -88,7 +88,7 @@ $myInvitedEventResult = $myInvitedEventQuery->fetch();
                     <input type="hidden" name="eventId" value="<?= $result["event_id"] ?>">
                     <input class="btn btn-outline-danger" type="submit" name="deleteEvent" value="Delete Current Event">
                 </form>
-                <?php if(date('Y-m-d h:i') < $eventClose) { ?>
+                <?php if(date('F j, Y, g:i A') < $eventClose) { ?>
                 <a href="modify-selected-event.php?id=<?= $result["event_id"] ?>"><input
                         class="btn btn-outline-primary mb-3" type="submit" name="modifyEvent" value="Modify Event"></a>
                 <a href="invite-friends-to-event.php?id=<?= $result["event_id"] ?>"><input class="btn btn-primary mb-3"
@@ -98,19 +98,22 @@ $myInvitedEventResult = $myInvitedEventQuery->fetch();
                 <?php 
                 } else {
                     if(isAuthenticated()){
-                        if(date('Y-m-d h:i') < $eventClose) {
+                        if(date('F j, Y, g:i A') < $eventClose) {
+                            if($myInvitedEventResult["status"] == "tentative") {
                 ?>
                 <a href="change-my-status.php?id=<?= $eventId ?>&status=<?= $myInvitedEventResult["status"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="changeMyStatus" value="Change my status"></a>
-                <?php   } ?>
+                
+                <?php       } 
+                        } ?>
                 <a href="invited-people.php?id=<?= $eventId ?> "><input class="btn btn-outline-primary mb-3" type="submit" name="checkInvitedPeople" value="Invited people"></a>
                 <?php if($myInvitedEventResult["status"] == "accepted") { 
-                        if(date('Y-m-d h:i') < $eventClose) { ?>
+                        if(date('F j, Y, g:i A') < $eventClose) { ?>
                 <a href="wishlist.php?id=<?= $result["event_id"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="wishlistBtn" value="Wishlist"></a>
                 <?php
                         } 
                     } 
                         if($myInvitedEventResult["status"] == "tentative") { 
-                            if(date('Y-m-d h:i') < $eventClose) { ?>
+                            if(date('F j, Y, g:i A') < $eventClose) { ?>
                 <br><small style="color:#f00;">Your currently status is <strong><?= $myInvitedEventResult["status"] ?></strong>. Please let the organizer know if you
                     are coming or not!</small>
                 <?php

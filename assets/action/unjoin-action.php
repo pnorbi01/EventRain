@@ -21,7 +21,22 @@ if(isset($_GET["id"]) && !empty($_GET["id"]) &&
         $query->execute();
 
         if ($query->rowCount() > 0) {
-            redirection("../../events.php?m=8");
+            $status = "available";
+            $giftDeleteSql = "UPDATE gifts SET user_id = NULL, status = :status WHERE event_id = :id AND user_id = :user_id";
+
+            $giftDeleteQuery = $pdo->prepare($giftDeleteSql);
+            $giftDeleteQuery->bindParam(':id', $id, PDO::PARAM_INT);
+            $giftDeleteQuery->bindParam(':user_id', $_SESSION["id_user"], PDO::PARAM_INT);
+            $giftDeleteQuery->bindParam(':status', $status, PDO::PARAM_STR);
+            $giftDeleteQuery->execute();
+
+            if($giftDeleteQuery->rowCount() == 1){
+                redirection("../../events.php?m=8");
+            }
+            else {
+                redirection("../../events.php?m=9");
+            }
+            
         } 
         else {
             redirection("../../events.php?m=9");

@@ -23,14 +23,14 @@ if(isset($_POST["changeMyStatus"])) {
 
 
             if($query->rowCount() == 1) {
-                header("Location: ../../change-my-status.php?m=1&id=$eventsId&status=$myEventStatus");
+                header("Location: ../../events.php?m=10");
             }
             else{
-                header("Location: ../../change-my-status.php?m=2&id=$eventsId&status=$myEventStatus");
+                header("Location: ../../change-my-status.php?m=1&id=$eventsId&status=$myEventStatus");
             }
     }
     else {
-        header("Location: ../../change-my-status.php?m=3&id=".$_POST["eventsId"]."&status=".$_POST["myEventStatus"]);
+        header("Location: ../../change-my-status.php?m=2&id=".$_POST["eventsId"]."&status=".$_POST["myEventStatus"]);
     }
 }
 

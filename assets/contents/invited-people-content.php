@@ -38,9 +38,9 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
         <div class="d-flex w-100 justify-content-center">
             <h3 class="mb-2 text-center">People who are invited to this event</h3>
         </div>
-        <input class="form-control mr-sm-2" id="searchInput" onkeyup="searchFunction()" type="search" placeholder="Search" aria-label="Search">
     </div>
     <?php if ($query->rowCount() > 0){ ?>
+    <input class="form-control mr-sm-2" id="searchInput" onkeyup="searchFunction()" type="search" placeholder="Search" aria-label="Search">
     <div class="divTable">
         <table class="table table-hover text-center" id="invitedPeopleTable">
             <thead>
@@ -65,6 +65,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                     <form method="post" action="assets/action/delete-invited-friend-action.php">
                         <input type="hidden" value="<?= $result["event_id"] ?>" name="eventId">
                         <input type="hidden" value="<?= $result["email"] ?>" name="deletedFriendEmail">
+                        <input type="hidden" value="<?= $result["user_id"] ?>" name="userId">
                         <th scope="col"><input type="submit" class="btn btn-outline-danger" name="deleteInvitedFriend"
                                 value="Remove"></th>
                     </form>
@@ -81,7 +82,9 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                 <?php } ?>
             </tbody>
         </table>
-        <?php
+    </div>
+    <div class="divTable">
+    <?php
         if (isset($_GET['m']) and array_key_exists($_GET['m'], $messages[$page])) {
             echo '<div class="alert alert-' . $messages[$page][$_GET['m']]['style'] . ' alert-dismissible fade show" role="alert" id="message">' . $messages[$page][$_GET['m']]['text'] . '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
         }

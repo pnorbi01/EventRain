@@ -65,28 +65,31 @@ $MyEventsResult = $query->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <p class="mb-1"><?= $result["event_type"] ?></p>
                 <small><?= $result["event_location"] ?>, <?= $result["event_street"] ?></small><br><br>
-                <small><i class="bi bi-calendar-check-fill"></i> Event created at: <strong><?= $result["date_time"] ?></strong></small><br>
-                <small><i class="bi bi-clock-fill"></i> Event starts at: <strong><?= $result["event_start"] ?></strong></small><br>
+                <small><i class="bi bi-calendar-check-fill"></i> Event created at:
+                    <strong><?php echo date("F j, Y, g:i A", strtotime($result["date_time"])); ?></strong></small><br>
+                <small><i class="bi bi-clock-fill"></i> Event starts at:
+                    <strong><?php echo date("F j, Y, g:i A", strtotime($result["event_start"])); ?></strong></small><br>
                 <?php 
-                $eventClose = date('Y-m-d h:i', strtotime($result["event_close"]));
+                $eventClose = date('F j, Y, g:i A', strtotime($result["event_close"]));
                 ?>
-                <small><i class="bi bi-door-open-fill"></i> Event closes at: 
+                <small><i class="bi bi-door-open-fill"></i> Event closes at:
                     <strong>
-                        
-                        <?php if(date('Y-m-d h:i') < $eventClose) { ?>
+
+                        <?php if(date('F j, Y, g:i A') < $eventClose) { ?>
                         <?= $eventClose ?>
                         <?php } else { ?>
                         <span style="color:#f00;"><strong>CLOSED</strong></span>
                         <?php } ?>
                     </strong>
                 </small><br>
-                <small><i class="bi bi-person-fill"></i> Event created by: <strong><?= $creatorResult["username"] ?></strong></small><br><br>
+                <small><i class="bi bi-person-fill"></i> Event created by:
+                    <strong><?= $creatorResult["username"] ?></strong></small><br><br>
                 <?php if($result["user_id"] == $_SESSION["id_user"]){ ?>
                 <form method="post" action="assets/action/selected-event-action.php">
                     <input type="hidden" name="eventId" value="<?= $result["event_id"] ?>">
                     <input class="btn btn-outline-danger" type="submit" name="deleteEvent" value="Delete Current Event">
                 </form>
-                <?php if(date('Y-m-d h:i') < $eventClose) { ?>
+                <?php if(date('F j, Y, g:i A') < $eventClose) { ?>
                 <a href="modify-selected-event.php?id=<?= $result["event_id"] ?>"><input
                         class="btn btn-outline-primary mb-3" type="submit" name="modifyEvent" value="Modify Event"></a>
                 <a href="invite-friends-to-event.php?id=<?= $result["event_id"] ?>"><input
@@ -95,20 +98,25 @@ $MyEventsResult = $query->fetchAll(PDO::FETCH_ASSOC);
                 <?php } ?>
                 <a href="invited-people.php?id=<?= $result["event_id"] ?> "><input class="btn btn-outline-primary mb-3"
                         type="submit" name="checkInvitedPeople" value="Invited people"></a>
-                <a href="wishlist.php?id=<?= $result["event_id"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="wishlistBtn" value="Wishlist"></a>
+                <a href="wishlist.php?id=<?= $result["event_id"] ?>"><input class="btn btn-outline-primary mb-3"
+                        type="submit" name="wishlistBtn" value="Wishlist"></a>
                 <?php 
                 } else {
                     if(isAuthenticated()){
                         if ($joinedEventQuery->rowCount() == 0) {
-                            if(date('Y-m-d h:i') < $eventClose) {
+                            if(date('F j, Y, g:i A') < $eventClose) {
                 ?>
-                <a href="assets/action/want-to-join-action.php?id=<?= $result["event_id"] ?>&email=<?= $_SESSION["user_email"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="wantToJoin" value="Join party"></a>
+                <a
+                    href="assets/action/want-to-join-action.php?id=<?= $result["event_id"] ?>&email=<?= $_SESSION["user_email"] ?>"><input
+                        class="btn btn-outline-primary mb-3" type="submit" name="wantToJoin" value="Join party"></a>
                 <?php   }
                     } 
-                    else { if(date('Y-m-d h:i') < $eventClose) { ?>
-                <a href="assets/action/unjoin-action.php?id=<?= $result["event_id"] ?>&email=<?= $_SESSION["user_email"] ?>"><input
+                    else { if(date('F j, Y, g:i A') < $eventClose) { ?>
+                <a
+                    href="assets/action/unjoin-action.php?id=<?= $result["event_id"] ?>&email=<?= $_SESSION["user_email"] ?>"><input
                         class="btn btn-outline-danger mb-3" type="submit" name="unJoin" value="Quit party"></a>
-                <a href="wishlist.php?id=<?= $result["event_id"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="wishlistBtn" value="Wishlist"></a>
+                <a href="wishlist.php?id=<?= $result["event_id"] ?>"><input class="btn btn-outline-primary mb-3"
+                        type="submit" name="wishlistBtn" value="Wishlist"></a>
                 <?php
                     }
                  } ?>

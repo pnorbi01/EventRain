@@ -25,12 +25,12 @@ if ($query->rowCount() == 1) {
                 ?>
                 <div class="text-center text-sm-right">
                     <span class="badge rounded-pill bg-info">Administrator</span><br>
-                    <small style="color: #69707a;">Joined <strong><?= $result["date_time"] ?></strong></small>
+                    <small style="color: #69707a;">Joined <strong><?php echo date("F j, Y", strtotime($result["date_time"])); ?></strong></small>
                 </div>
                 <?php
                 } else { ?>
                 <div class="text-center text-sm-right">
-                    <small style="color: #69707a;">Joined <strong><?= $result["date_time"] ?></strong></small>
+                    <small style="color: #69707a;">Joined <strong><?php echo date("F j, Y", strtotime($result["date_time"])); ?></strong></small>
                 </div>
                 <?php
                 }

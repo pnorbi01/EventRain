@@ -12,6 +12,10 @@ else {
     redirection("index.php");
 }
 
+if(isClosed($eventId)){
+    redirection("index.php");
+}
+
 $modifySelectedEventSql = "SELECT * FROM events WHERE event_id = :id";
 $query = $pdo->prepare($modifySelectedEventSql);
 $query->bindParam(':id', $eventId, PDO::PARAM_INT);

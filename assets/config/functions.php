@@ -511,3 +511,74 @@ function dataExists($selectField, $selectTable, $whereFields, $whereValues): boo
 
     return $query->rowCount() > 0 ? true : false;
 }
+
+function isClosed($eventId) {
+    global $dsn, $pdoOptions;
+    $pdo = connectDatabase($dsn, $pdoOptions);
+
+    $sql = "SELECT event_close FROM events WHERE event_id = :id";
+
+    $query = $pdo->prepare($sql);
+    $query->bindParam(':id', $eventId, PDO::PARAM_INT);
+    $query->execute();
+    $result = $query->fetch();
+
+    if ($query->rowCount() == 1) {
+        $eventClose = date('F j, Y, g:i A', strtotime($result["event_close"]));
+        if(date('F j, Y, g:i A') > $eventClose) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        return false;
+    }
+}
+
+function isOwner($eventId, $user) {
+    global $dsn, $pdoOptions;
+    $pdo = connectDatabase($dsn, $pdoOptions);
+
+    $sql = "SELECT * FROM events WHERE event_id = :event_id AND user_id = :user_id";
+
+    $query = $pdo->prepare($sql);
+    $query->bindParam(':event_id', $eventId, PDO::PARAM_INT);
+    $query->bindParam(':user_id', $user, PDO::PARAM_INT);
+    $query->execute();
+    $result = $query->fetch();
+
+    if ($query->rowCount() == 1) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function isGoing($eventId, $email){
+    global $dsn, $pdoOptions;
+    $pdo = connectDatabase($dsn, $pdoOptions);
+
+    $sql = "SELECT event_id, invited_user_email, status FROM invitations WHERE event_id = :event_id AND invited_user_email = :email";
+
+    $query = $pdo->prepare($sql);
+    $query->bindParam(':event_id', $eventId, PDO::PARAM_INT);
+    $query->bindParam(':email', $email, PDO::PARAM_STR);
+    $query->execute();
+    $result = $query->fetch();
+
+    if ($query->rowCount() == 1) {
+        if($result["status"] == "accepted" || $result["status"] == "joined"){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        return false;
+    }
+
+}

@@ -13,6 +13,14 @@ else {
     redirection("index.php");
 }
 
+if(isClosed($eventId) && !isOwner($eventId, $_SESSION["id_user"])){
+    redirection("index.php");
+}
+
+if(!isOwner($eventId, $_SESSION["id_user"]) && !isGoing($eventId, $_SESSION["user_email"])){
+    redirection("index.php");
+}
+
 $status = "available";
 $availableGiftSql = "SELECT * FROM gifts WHERE status = :status AND event_id = :event_id";
 $availableGiftQuery = $pdo->prepare($availableGiftSql);
@@ -49,6 +57,12 @@ $query->bindParam(':event_id', $eventId, PDO::PARAM_INT);
 $query->execute();
 $results = $query->fetchAll(PDO::FETCH_ASSOC);
 
+$selectCommentsSql = "SELECT * FROM comments, users WHERE comments.user_id = users.user_id AND comments.event_id = :id ORDER BY comments.post_time DESC";
+$selectCommentsQuery = $pdo->prepare($selectCommentsSql);
+$selectCommentsQuery->bindParam(':id', $eventId, PDO::PARAM_INT);
+$selectCommentsQuery->execute();
+$selectCommentsResult = $selectCommentsQuery->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <div class="container">
     <nav aria-label="breadcrumb">
@@ -69,6 +83,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                 <h2 class="mb-2 text-center">Wishlist of selected event</h2>
             </div>
             <span>There is <strong><?php echo $availableGiftQuery->rowCount() ?></strong> more available gift(s).</span>
+            <small class="text-muted">Note that you can only bring one gift!</small>
         </div>
         <?php
         if ($query->rowCount() > 0){
@@ -149,4 +164,71 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
     </div><br>
     <?php }
     } ?>
+    <hr>
+</div>
+<div class="list-group my-3 px-5">
+    <div class="d-flex w-100 justify-content-center">
+        <h2 class="mb-2 text-center">Share your comment below</h2>
+    </div>
+</div>
+<div class="row d-flex justify-content-center">
+    <div class="col-md-8 col-lg-8">
+        <div class="card shadow-0 border">
+            <div class="card-body p-4">
+                <form method="post" action="assets/action/comment-action.php">
+                    <div class="form-outline mb-4">
+                        <div class="form-outline w-100">
+                            <textarea class="form-control" id="textAreaExample" name="comment" rows="4" style="background: #fff;" placeholder="Type your comment"></textarea>
+                        </div><br>
+                        <input type="submit" name="postComment" value="Post comment" class="btn btn-outline-primary">
+                        <input type="hidden" name="eventComment" value="<?= $eventId ?>">
+                        <input type="hidden" name="userComment" value="<?= $_SESSION["id_user"] ?>">
+                    </div>
+                </form>
+                <h5>Recent comments by users <span class="badge bg-danger rounded-pill"><?php echo $selectCommentsQuery->rowCount() ?></span></h5><br>
+                <?php 
+                    if ($selectCommentsQuery->rowCount() > 0){
+                        foreach($selectCommentsResult as $commentResult){
+                ?>
+                <div class="card">
+                <?php
+                if($creatorResult["user_id"] == $_SESSION["id_user"]) {
+                ?>
+                <a href="assets/action/delete-comment-action.php?commentId=<?= $commentResult["id"] ?>&id=<?= $eventId ?>"><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" title="Delete Comment" style="cursor: pointer;">-</span></a>
+                <?php
+                }
+                ?> 
+                    <div class="card-body">
+                        <p><?= $commentResult["comment"] ?></p>
+
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                                <img src="assets/images/profile-pictures/<?= $commentResult["image"] ?>" alt="profilePicture"
+                                    width="25" height="25" class="rounded-circle" />
+                                <p class="small mb-0 ms-2" style="color: #6495ED;"><?= $commentResult["username"] ?></p>
+                                <?php
+                                if($commentResult["user_id"] === $creatorResult["user_id"]) {
+                                ?>
+                                &nbsp;<i class="bi bi-gem" style="color: #FFD700;" title="Owner"></i>
+                                <?php
+                                }
+                                ?>
+                            </div>
+                            <div class="d-flex flex-row align-items-center">
+                                <p class="small text-muted mb-0">Posted at <?php echo date("F j, Y", strtotime($commentResult["post_time"])); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                </div><br>
+                <?php 
+                        }
+                    } else {
+                    ?>
+                    <h6 class="text-center">There is no comments yet!</h6>
+                    <?php 
+                    }
+                    ?>
+            </div>
+        </div>
+    </div>
 </div>
