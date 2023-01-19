@@ -180,7 +180,13 @@ $selectCommentsResult = $selectCommentsQuery->fetchAll(PDO::FETCH_ASSOC);
                         <div class="form-outline w-100">
                             <textarea class="form-control" id="textAreaExample" name="comment" rows="4" style="background: #fff;" placeholder="Type your comment"></textarea>
                         </div><br>
-                        <input type="submit" name="postComment" value="Post comment" class="btn btn-outline-primary">
+                        <?php if(date('Y-m-d h:i') < $eventClose) { ?>
+                            <input type="submit" name="postComment" value="Post comment" class="btn btn-outline-primary">
+                        <?php 
+                              } 
+                              else { ?>
+                                <input type="submit" name="postComment" value="Post comment" disabled class="btn btn-secondary">
+                        <?php } ?>
                         <input type="hidden" name="eventComment" value="<?= $eventId ?>">
                         <input type="hidden" name="userComment" value="<?= $_SESSION["id_user"] ?>">
                     </div>
@@ -212,7 +218,10 @@ $selectCommentsResult = $selectCommentsQuery->fetchAll(PDO::FETCH_ASSOC);
                                 &nbsp;<i class="bi bi-gem" style="color: #FFD700;" title="Owner"></i>
                                 <?php
                                 }
+                                if($commentResult["user_id"] === $_SESSION["id_user"]) {
                                 ?>
+                                <a href="assets/action/delete-comment-action.php?commentId=<?= $commentResult["id"] ?>&id=<?= $eventId ?>"><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" title="Delete Comment" style="cursor: pointer;">-</span></a>
+                                <?php } ?>
                             </div>
                             <div class="d-flex flex-row align-items-center">
                                 <p class="small text-muted mb-0">Posted at <?php echo date("F j, Y", strtotime($commentResult["post_time"])); ?></p>

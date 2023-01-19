@@ -37,6 +37,9 @@
                     <div class="form-floating mb-3 required">
                         <input type="password" class="form-control" name="password" id="password" placeholder="name@example.com">
                         <label for="password" class="form-label">Password</label>
+                        <div id="passwordHelp" class="form-text">
+                            Minimum length is 7 characters!
+                        </div>
                     </div>
                     <div class="form-floating mb-3 required">
                         <input type="password" class="form-control" name="passwordConfirm" id="passwordConfirm" placeholder="name@example.com">

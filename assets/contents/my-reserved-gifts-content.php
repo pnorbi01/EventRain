@@ -21,6 +21,7 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
             <li class=" breadcrumb-item active" aria-current="page"><?php echo $titles[$page] ?></li>
         </ol>
     </nav>
+    <small class="text-muted">Here you can see all your gifts that you choosed for events.</small>
     <div class="row justify-content-center gap-5">
     <?php
         if ($query->rowCount() > 0){
@@ -36,9 +37,9 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                 </p>
                 <span class="text-center">If you want to exchange your gift please find this event's profile before it closes!</span><br><br>
                 <?php if(date('Y-m-d h:i') < $eventClose) { ?>
-                    <span class="text-center text-muted"><strong>Event is OPEN</strong></span>
+                    <span class="text-center text-muted" title="Event is open"><strong><i class="bi bi-unlock"></i></strong></span>
                 <?php } else { ?>
-                    <span class="text-center text-muted"><strong>Event is CLOSED</strong></span>
+                    <span class="text-center text-muted" title="Event is closed"><strong><i class="bi bi-fill"></i></strong></span>
                 <?php } ?>
             </div>
         </div>

@@ -41,6 +41,9 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
     </div>
     <?php if ($query->rowCount() > 0){ ?>
     <input class="form-control mr-sm-2" id="searchInput" onkeyup="searchFunction()" type="search" placeholder="Search" aria-label="Search">
+    <div id="passwordHelp" class="form-text">
+        You can quick search by typing statuses!
+    </div>
     <div class="divTable">
         <table class="table table-hover text-center" id="invitedPeopleTable">
             <thead>

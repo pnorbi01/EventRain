@@ -78,7 +78,7 @@ $MyEventsResult = $query->fetchAll(PDO::FETCH_ASSOC);
                         <?php if(date('F j, Y, g:i A') < $eventClose) { ?>
                         <?= $eventClose ?>
                         <?php } else { ?>
-                        <span style="color:#f00;"><strong>CLOSED</strong></span>
+                        <span style="color:#f00;"><strong><i class="bi bi-lock-fill"></i></strong></span>
                         <?php } ?>
                     </strong>
                 </small><br>

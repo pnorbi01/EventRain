@@ -77,7 +77,7 @@ $myInvitedEventResult = $myInvitedEventQuery->fetch();
                         <?php if(date('F j, Y, g:i A') < $eventClose) { ?>
                         <?= $eventClose ?>
                         <?php } else { ?>
-                        <span style="color:#f00;"><strong>CLOSED</strong></span>
+                        <span style="color:#f00;"><strong><i class="bi bi-lock-fill" title="Event is closed"></i></strong></span>
                         <?php } ?>
                     </strong>
                 </small><br>

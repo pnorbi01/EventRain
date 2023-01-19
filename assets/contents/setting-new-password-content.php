@@ -15,6 +15,9 @@
                     <div class="form-floating mb-3 required">
                         <input type="password" class="form-control" name="firstPassword" id="firstPassword" placeholder="name@example.com" autofocus>
                         <label for="firstPassword" class="form-label">Password</label>
+                        <div id="passwordHelp" class="form-text">
+                            Minimum length is 7 characters!
+                        </div>
                     </div>
                     <div class="form-floating mb-3 required">
                         <input type="password" class="form-control" name="secondPassword" id="secondPassword" placeholder="name@example.com">
