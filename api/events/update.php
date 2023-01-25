@@ -4,7 +4,7 @@ require_once("../../assets/config/db_config.php");
 require_once("../../assets/config/config.php");
 require_once("../response.php");
 
-if(strcasecmp($_SERVER['REQUEST_METHOD'], 'GET') != 0){
+if(strcasecmp($_SERVER['REQUEST_METHOD'], 'PUT') != 0){
     sendBadRequestResponse();
 }
 
@@ -53,11 +53,14 @@ if(isset($user)) {
     $query->execute();
 
     if($query->rowCount() == 1) {
+        $data->id = $eventId;
         $response["message"] = "Event updated successfully";
+        $response["event"] = $data;
         sendOkResponse($response);
     }
     else {
-        sendUnauthorizedResponse();
+        $response["message"] = "Error updating the event. The event is either not found or unchanged";
+        sendServerErrorResponse($response);
     }
 }
 else {

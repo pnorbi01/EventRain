@@ -4,7 +4,7 @@ require_once("../../assets/config/db_config.php");
 require_once("../../assets/config/config.php");
 require_once("../response.php");
 
-if(strcasecmp($_SERVER['REQUEST_METHOD'], 'GET') != 0){
+if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
     sendBadRequestResponse();
 }
 
@@ -52,11 +52,14 @@ if(isset($user)) {
     $lastInsertedId = $pdo->lastInsertId();
 
     if ($lastInsertedId > 0) {
+        $data->id = $pdo->lastInsertId();
         $response["message"] = "Event created successfully";
+        $response["event"] = $data;
         sendOkResponse($response);
     }
     else {
-        sendUnauthorizedResponse();
+        $response["message"] = "Error creating the event";
+        sendServerErrorResponse($response);
     }
 }
 else {
