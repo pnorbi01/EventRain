@@ -38,7 +38,7 @@ if(isset($_POST["deleteInvitedFriend"])) {
                     redirection("../../invited-people.php?m=1&id=$event");
                 }
                 else {
-                    redirection("../../invited-people.php?m=2&id=$event");
+                    redirection("../../invited-people.php?m=1&id=$event");
                 }
 
             } 
