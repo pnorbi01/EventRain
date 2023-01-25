@@ -12,6 +12,10 @@ else {
     redirection("index.php");
 }
 
+if(!isValidEvent($eventId)){
+    redirection("index.php");
+}
+
 $selectJoinedEventsSql = "SELECT * FROM invitations WHERE event_id = :id AND invited_user_email = :email";
 $joinedEventQuery = $pdo->prepare($selectJoinedEventsSql);
 $joinedEventQuery->bindParam(':id', $eventId, PDO::PARAM_INT);

@@ -32,8 +32,9 @@ if ($action != "" AND in_array($action, $actions)) {
                     $_SESSION['id_user'] = $data['id_user'];
                     $_SESSION['user_email'] = $data['email'];
 
-                    require_once('mail/Mobile-Detect-2.8.39/Mobile_Detect.php');
-                    $detect = new Mobile_Detect();
+                    require_once('mail/vendor/autoload.php');
+                    require_once('mail/vendor/mobiledetect/mobiledetectlib/src/MobileDetect.php');
+                    $detect = new \Detection\MobileDetect();
 
                     $deviceType = ($detect->isMobile() ? ($detect->isTablet() ? 'tablet' : 'phone') : 'computer');
 

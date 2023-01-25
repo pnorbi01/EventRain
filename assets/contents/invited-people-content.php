@@ -12,6 +12,10 @@ else {
     redirection("index.php");
 }
 
+if(!isValidEvent($eventId)){
+    redirection("index.php");
+}
+
 $organizerSql = "SELECT * FROM invitations, events WHERE invitations.event_id = events.event_id AND invitations.event_id = :event_id";
 $organizerQuery = $pdo->prepare($organizerSql);
 $organizerQuery->bindParam(':event_id', $eventId, PDO::PARAM_INT);

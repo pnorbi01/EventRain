@@ -12,6 +12,10 @@ else {
     redirection("index.php");
 }
 
+if(!isValidEvent($eventId)){
+    redirection("index.php");
+}
+
 if(isClosed($eventId)){
     redirection("index.php");
 }

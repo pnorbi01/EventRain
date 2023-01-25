@@ -12,7 +12,7 @@ if (!empty($token) AND strlen($token) === 40) {
     global $dsn, $pdoOptions;
     $pdo = connectDatabase($dsn, $pdoOptions);
 
-    $sql = "UPDATE users SET active='1', token='', registration_expires=''
+    $sql = "UPDATE users SET active='1', token='', registration_expires=NULL
             WHERE binary token = :token AND registration_expires>now()";
 
     $query = $pdo->prepare($sql);

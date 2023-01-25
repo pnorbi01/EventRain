@@ -582,3 +582,26 @@ function isGoing($eventId, $email){
     }
 
 }
+
+function isValidEvent($eventId) {
+    global $dsn, $pdoOptions;
+    $pdo = connectDatabase($dsn, $pdoOptions);
+
+    $active = "active";
+
+    $sql = "SELECT event_id, event_active FROM events WHERE event_id = :event_id AND event_active = :event_active";
+
+    $query = $pdo->prepare($sql);
+    $query->bindParam(':event_id', $eventId, PDO::PARAM_INT);
+    $query->bindParam(':event_active', $active, PDO::PARAM_STR);
+    $query->execute();
+    $result = $query->fetch();
+
+    if ($query->rowCount() == 1) {
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}

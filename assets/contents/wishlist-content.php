@@ -13,6 +13,10 @@ else {
     redirection("index.php");
 }
 
+if(!isValidEvent($eventId)){
+    redirection("index.php");
+}
+
 if(isClosed($eventId) && !isOwner($eventId, $_SESSION["id_user"])){
     redirection("index.php");
 }
@@ -223,9 +227,10 @@ $selectCommentsResult = $selectCommentsQuery->fetchAll(PDO::FETCH_ASSOC);
                                 <a href="assets/action/delete-comment-action.php?commentId=<?= $commentResult["id"] ?>&id=<?= $eventId ?>"><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" title="Delete Comment" style="cursor: pointer;">-</span></a>
                                 <?php } ?>
                             </div>
-                            <div class="d-flex flex-row align-items-center">
-                                <p class="small text-muted mb-0">Posted at <?php echo date("F j, Y", strtotime($commentResult["post_time"])); ?></p>
-                            </div>
+                        </div>
+                        <hr>
+                        <div class="d-flex flex-row align-items-center">
+                            <p class="small text-muted mb-0">Posted at <?php echo date("F j, Y", strtotime($commentResult["post_time"])); ?></p>
                         </div>
                     </div>
                 </div><br>

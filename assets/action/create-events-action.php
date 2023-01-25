@@ -24,8 +24,6 @@ if(isset($_POST["createEventBtn"])) {
             return trim(strip_tags($giftNames));
         }, $_POST['giftName']);
 
-        print_r($giftNames);
-
         global $dsn, $pdoOptions;
         $pdo = connectDatabase($dsn, $pdoOptions);
 
