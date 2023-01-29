@@ -9,7 +9,8 @@ if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
 }
 
 $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
-if(strcasecmp($contentType, 'application/json') != 0){
+if(strcasecmp($contentType, 'application/json') != 0) {
+    echo $contentType;
     sendBadRequestResponse();
 }
 

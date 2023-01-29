@@ -23,15 +23,16 @@ else {
     sendBadRequestResponse();
 }
 
-$eventType = $data->eventType;
-$eventName = $data->eventName;
-$eventStatus = $data->eventStatus;
-$eventLocation = $data->eventLocation;
-$eventStreet = $data->eventStreet;
-
-if(!isset($data->eventType) || !isset($data->eventName) || !isset($data->eventStatus) || !isset($data->eventLocation) || !isset($data->eventStreet)) {
+if(!isset($data->event_type) || !isset($data->event_name) || !isset($data->event_status) || !isset($data->event_location) || !isset($data->event_street)) {
     sendBadRequestResponse();
 }
+
+$eventType = $data->event_type;
+$eventName = $data->event_name;
+$eventStatus = $data->event_status;
+$eventLocation = $data->event_location;
+$eventStreet = $data->event_street;
+
 
 $user = getUserIfAuthenticated();
 

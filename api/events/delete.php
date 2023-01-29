@@ -4,12 +4,7 @@ require_once("../../assets/config/db_config.php");
 require_once("../../assets/config/config.php");
 require_once("../response.php");
 
-if(strcasecmp($_SERVER['REQUEST_METHOD'], 'GET') != 0){
-    sendBadRequestResponse();
-}
-
-$contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
-if(strcasecmp($contentType, 'application/json') != 0){
+if(strcasecmp($_SERVER['REQUEST_METHOD'], 'DELETE') != 0){
     sendBadRequestResponse();
 }
 
