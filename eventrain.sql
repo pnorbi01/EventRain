@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 16, 2023 at 02:02 PM
+-- Generation Time: Jan 29, 2023 at 11:46 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -24,6 +24,66 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `api`
+--
+
+CREATE TABLE `api` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_hungarian_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+
+--
+-- Dumping data for table `api`
+--
+
+INSERT INTO `api` (`id`, `user_id`, `token`) VALUES
+(43, 2, 'ExyAcvOxvIjwUadDupVaeJxuCbqXdnDmcLjxVnzM'),
+(44, 2, 'PqqwlpxXwofibdRuaemopLmqckclCcgidgeJamzr'),
+(47, 2, 'PscbwPymtoTjcllRtjsgOcizfCwbmlGeonePofmy'),
+(49, 2, 'QivqhxnNpqdahkPxhpstgSloqudfBhttwhnOwqme'),
+(50, 2, 'NosNvuEliXmlBvcLjcBnaDhsTrwRgiZvoXynQdpL'),
+(51, 2, 'RczotfhCudnegbMyqtcdbUamijgeEjrypecOsspb'),
+(52, 2, 'DlgahNkofsPoqnoVwdmwSxmslYsvdeSocmvUxpau'),
+(53, 2, 'NnstxhsKblwmsrHfapkgeZddqrbjSpjdtufBxfaj'),
+(56, 2, 'VetfpqbJfheengNktgqsbEclctcfTddkpqnAowid'),
+(57, 2, 'DoxkokkTibujifOjknajzGwkhbmkYfzwgxgFflqk'),
+(58, 2, 'XoyfcnzaVzloyumjLdehhutcNmmauakjOnjufrto'),
+(59, 2, 'FqxsbaKxcjlrOzsgsrWtffkqSyycryYwuctkOwpn'),
+(60, 2, 'AhmdbedcModerksiZxfytnteVijgbiwkOnkzzvom'),
+(62, 2, 'MncZuoQazImrTddAtlKpiEsmJapBraZurHcfSoaT'),
+(63, 2, 'JhiAajBfoOmnTxrXlgYlbFcaJswAhnAldRwgGkgA'),
+(64, 2, 'YpkXbaCwiWskWhaHnhAztWemIvnCgqLerJpkEgmB'),
+(65, 2, 'ShkabmeuDdxkgnazBryfhvxbAgvnoltoTgymsiku'),
+(66, 2, 'ZojnbgMmdttlNhfktmUjrltkYqqwrnUoltnnOmjz'),
+(67, 2, 'NeijlXtbhgKehgtYicniLmrjjStbqkYmqzmIdegp'),
+(68, 2, 'KebrlklJoldbuiDpecndiMdjmkadTddwpfeRghrr'),
+(69, 2, 'LldVpbJywGlmVxsQipYwaOakFmbVmhBubYghNwvS'),
+(70, 2, 'QrwsZicuVxdxPgyyAmmbQlmhGyanWylfIwflHmel'),
+(71, 2, 'QvresaolwTxyzftpryGpzkjvumxSqtxuoireUypa'),
+(72, 2, 'GzjfogXevdokPinidyKgdqocLbymyfHbzdhfBomw'),
+(73, 2, 'SjlwksitiImsgwnoeeUissifeijCjtjjbarzCmzy'),
+(74, 2, 'GgozPkryOyqqVezbOchiXdgwDtdaWhzxTrggZtxx'),
+(75, 2, 'PcnfeloIdctkayJsjpxvwZtjohrzNzgmjicQejjr'),
+(76, 2, 'MxoPwbJpmLbfPkwSghIdjHrjItgVdpKcsWzsQxxF'),
+(77, 2, 'DsicjxEodpuwKjydjtWoqrcvYuuipgGuwqetFeck'),
+(78, 2, 'AkhyqrjuaRidnmybjaApjxcsfzyJomsrkqyxBgvv'),
+(79, 2, 'XabaxWqrgzWppsjWnrjvVsvjxBeqccSwpidAlfcv'),
+(80, 2, 'OgrMklPjiVabYeeVlrVysTzdRpiOvmPctEqfCheD'),
+(81, 2, 'VsdgMoudQybxZzwyNdnjMsjtOmycNfkwMvvdEpfb'),
+(82, 2, 'FmyazZbvszEnyvfYttzhUhxwdXuqywRjmnvTihtc'),
+(87, 2, 'XccmNyitLercRboeSejmLkgxLxwhXrqrKfnbZyie'),
+(88, 2, 'KjlvlqshnIntqucbfpKhbruqnxeJydcvsttdJozo'),
+(90, 2, 'CqtRcfDsaVxvCiuLoxIunAveYdyXokKpzMapDlpL'),
+(95, 2, 'VknXdpLdyYnpAyrWmzRpeGyoSglEfsZwhTzsRhoZ'),
+(97, 2, 'ZortZsntTnkhPlszAbodIfvuAimoVtfpOqqeUhjt'),
+(99, 2, 'FazsvdlMemlpbnBljesdaLzuzttrUfqotllNeclo'),
+(100, 2, 'FvgtcyYmetdbFoenuhEsdqmfQyygfkJhpsolPgqv'),
+(101, 2, 'OqtnHjdlDtciYpoaUimoRnrdOxppPkzjQgamWmbj');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `comments`
 --
 
@@ -34,14 +94,6 @@ CREATE TABLE `comments` (
   `comment` text COLLATE utf8mb4_hungarian_ci NOT NULL,
   `post_time` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
-
---
--- Dumping data for table `comments`
---
-
-INSERT INTO `comments` (`id`, `user_id`, `event_id`, `comment`, `post_time`) VALUES
-(22, 2, 67, '123123', '2023-01-15 17:20:38'),
-(23, 4, 67, 'Sziasztok', '2023-01-15 17:38:19');
 
 -- --------------------------------------------------------
 
@@ -68,8 +120,11 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`event_id`, `user_id`, `event_type`, `event_status`, `event_name`, `event_location`, `event_street`, `event_active`, `event_start`, `event_close`, `date_time`) VALUES
-(67, 2, 'Party', 'private', 'New Year Party', 'Backo Gradiste', 'Jovan Popovic 7', 'active', '2023-12-31 21:30:00', '2023-06-14 22:00:00', '2023-01-15 13:42:59'),
-(68, 5, 'Birthday', 'public', 'Dog\'s Birthday', 'Backo Gradiste', 'Jovan Popovic 7', 'active', '2023-01-30 15:45:00', '2023-01-20 01:45:00', '2023-01-15 13:45:45');
+(73, 2, 'MostTeszt', 'private', 'MostTesztasdasd', 'MostTeszt', 'MostTeszt', 'inactive', '2023-12-25 20:16:53', '2023-11-25 20:16:53', '2023-01-23 13:36:43'),
+(74, 2, 'MostTeszt', 'private', 'MostTesztasdasd', 'MostTeszt', 'MostTeszt', 'inactive', '2023-12-25 20:16:53', '2023-11-25 20:16:53', '2023-01-25 18:16:48'),
+(75, 2, 'MostTeszt', 'private', 'MostTesztasdasd', 'MostTeszt', 'MostTeszt', 'inactive', '2023-12-25 20:16:53', '2023-11-25 20:16:53', '2023-01-25 18:17:29'),
+(80, 2, 'Bfj', 'public', 'Hajdjf', 'Hfhf', 'Jfjf', 'inactive', '2023-02-17 19:49:00', '2023-01-19 19:49:00', '2023-01-28 20:51:04'),
+(84, 2, 'MostTesztApi', 'private', 'MostTesztApi', 'MostTesztApi', 'MostTesztApi', 'inactive', '2023-12-25 20:16:53', '2023-11-25 20:16:53', '2023-01-29 11:35:27');
 
 -- --------------------------------------------------------
 
@@ -98,18 +153,6 @@ CREATE TABLE `gifts` (
   `date_time` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
---
--- Dumping data for table `gifts`
---
-
-INSERT INTO `gifts` (`gift_id`, `event_id`, `user_id`, `name`, `status`, `date_time`) VALUES
-(83, 67, NULL, 'Pezsgő', 'available', '2023-01-15 13:42:59'),
-(84, 67, NULL, 'Bor', 'available', '2023-01-15 13:42:59'),
-(86, 67, NULL, 'Fanta', 'available', '2023-01-15 13:42:59'),
-(87, 67, NULL, 'Pizza', 'available', '2023-01-15 13:42:59'),
-(88, 68, NULL, 'Kutya kaja', 'available', '2023-01-15 13:45:46'),
-(89, 68, 2, 'Labda', 'reserved', '2023-01-15 13:45:46');
-
 -- --------------------------------------------------------
 
 --
@@ -123,13 +166,6 @@ CREATE TABLE `invitations` (
   `status` enum('tentative','accepted','declined','joined') COLLATE utf8mb4_hungarian_ci NOT NULL DEFAULT 'tentative',
   `date_time` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
-
---
--- Dumping data for table `invitations`
---
-
-INSERT INTO `invitations` (`invitation_id`, `event_id`, `invited_user_email`, `status`, `date_time`) VALUES
-(61, 68, 'pnorbyy01@gmail.com', 'accepted', '2023-01-15 15:42:19');
 
 -- --------------------------------------------------------
 
@@ -146,6 +182,22 @@ CREATE TABLE `logs` (
   `ip_address` varchar(64) COLLATE utf8mb4_hungarian_ci NOT NULL,
   `date_time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`log_id`, `user_id`, `device_type`, `http_accept`, `http_user_agent`, `ip_address`, `date_time`) VALUES
+(13, 2, 'computer', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '::1', '2023-01-19 19:46:50'),
+(14, 4, 'computer', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '::1', '2023-01-19 19:46:59'),
+(16, 2, 'computer', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '::1', '2023-01-19 21:11:23'),
+(18, 7, 'computer', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '::1', '2023-01-21 20:47:10'),
+(19, 2, 'computer', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '::1', '2023-01-23 13:20:26'),
+(20, 2, 'computer', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '::1', '2023-01-25 11:57:53'),
+(21, 2, 'computer', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '::1', '2023-01-25 12:00:34'),
+(22, 2, 'computer', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '::1', '2023-01-25 12:50:24'),
+(23, 7, 'computer', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '::1', '2023-01-25 13:19:44'),
+(24, 2, 'computer', 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36', '::1', '2023-01-26 20:44:31');
 
 -- --------------------------------------------------------
 
@@ -173,10 +225,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `firstname`, `lastname`, `image`, `email`, `password`, `token`, `level`, `active`, `registration_expires`, `date_time`) VALUES
-(2, 'pnorbi', 'Norbert', 'Péter', 'b2cff9cf822e8aaa9dde53bbaadaecc9.jpg', 'pnorbyy01@gmail.com', '$2y$10$7w/n0iNGfFOF6qMaiqedg.7frYg2CRayWsLXT5am6MtlbbcH.R.w.', '', 'admin', 1, '0000-00-00 00:00:00', '2022-12-24 20:13:20'),
+(2, 'pnorbi', 'Norbert', 'Péter', 'b2cff9cf822e8aaa9dde53bbaadaecc9.jpg', 'pnorbyy01@gmail.com', '$2y$10$qDv6HCfZvk8ik8VHRmWnWOXBcZ0QK7Xcx9HBjvN7PXq1yi6P5XPWu', '', 'admin', 1, '0000-00-00 00:00:00', '2022-12-24 20:13:20'),
 (3, 'pnorbi01', 'Norbert', 'Péter', 'default-profile-picture.jpg', 'sad@asd.com', '$2y$10$8u7UCcrmPolUYVYDMDcXhuOgL2KGHFti.OfN4Fd9.gfnd4XzA9.qS', 'AafopkcydCdsjaopdxXndtngajyRobwawgfuJgyb', 'user', 1, '2022-12-25 20:16:53', '2022-12-24 20:16:53'),
 (4, 'pnorbi20010225', 'Norbi', 'Peter', 'f50884ef9bc9e2f008dd6b1b240e0f54.jpg', 'bonnycsgo@hotmail.com', '$2y$10$ojYbDq/Dmf3U9WimMbn/nuqVd2a9/YNvdrZniqNWa4CU7a/i4fzwi', '', 'user', 1, '0000-00-00 00:00:00', '2022-12-24 21:07:14'),
-(5, 'asd', 'fsafas', 'sad', 'default-profile-picture.jpg', 'eventrain@gmail.hu', '$2y$10$7y.Z4cRv8aJ1qe4ySS3Go.SwLkKDc6rpywyEusrNNJMxJztzBDgg6', '', 'user', 1, '0000-00-00 00:00:00', '2022-12-30 14:31:20');
+(7, 'eventrain', 'asd', 'asd', 'db100c81ce43ebae68f5dc2742871fff.jpg', 'eventrain@gmail.hu', '$2y$10$A9tiZbb2gidQQADNnPizk.Dy29Fd78wU9nZl7wqJscKXX.TX3Ei9m', '', 'user', 1, '0000-00-00 00:00:00', '2023-01-21 20:46:52');
 
 -- --------------------------------------------------------
 
@@ -193,6 +245,13 @@ CREATE TABLE `user_email_failures` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `api`
+--
+ALTER TABLE `api`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `comments`
@@ -257,22 +316,28 @@ ALTER TABLE `user_email_failures`
 --
 
 --
+-- AUTO_INCREMENT for table `api`
+--
+ALTER TABLE `api`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+
+--
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `forgotten_passwords`
 --
 ALTER TABLE `forgotten_passwords`
-  MODIFY `forgotten_password_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `forgotten_password_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `gifts`
@@ -284,19 +349,19 @@ ALTER TABLE `gifts`
 -- AUTO_INCREMENT for table `invitations`
 --
 ALTER TABLE `invitations`
-  MODIFY `invitation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `invitation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user_email_failures`
@@ -307,6 +372,12 @@ ALTER TABLE `user_email_failures`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `api`
+--
+ALTER TABLE `api`
+  ADD CONSTRAINT `api_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Constraints for table `comments`
