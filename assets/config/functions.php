@@ -125,7 +125,7 @@ function registerUser($username, $password, $firstname, $lastname, $email, $toke
     global $dsn, $pdoOptions;
     $pdo = connectDatabase($dsn, $pdoOptions);
 
-    $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
+    $passwordHashed = password_hash($password, PASSWORD_BCRYPT);
 
     $sql = "INSERT INTO users (username, password, firstname, lastname, email, token, registration_expires, active)
              VALUES (:username, :password, :firstname, :lastname, :email, :token, DATE_ADD(now(),INTERVAL 1 DAY), 0)";

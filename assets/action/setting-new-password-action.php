@@ -11,7 +11,7 @@ if(isset($_POST["setNewPassword"])) {
             $userId = $_POST["userId"];
             $newPasswordVerify = $_POST["secondPassword"];
             $newPassword = $_POST["firstPassword"];
-            $newPasswordHashed = password_hash($newPassword, PASSWORD_DEFAULT);
+            $newPasswordHashed = password_hash($newPassword, PASSWORD_BCRYPT);
 
             if($newPassword !== $newPasswordVerify){
                 redirection("../../setting-new-password.php?token=".$token."&m=1");

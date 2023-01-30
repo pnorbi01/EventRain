@@ -21,8 +21,8 @@ if(isset($_POST["editUserPassword"])) {
                 redirection("../../edit-profile.php?m=5");
             }
 
-            $oldPasswordHashed = password_hash($oldPassword, PASSWORD_DEFAULT);
-            $newPasswordHashed = password_hash($newPassword, PASSWORD_DEFAULT);
+            $oldPasswordHashed = password_hash($oldPassword, PASSWORD_BCRYPT);
+            $newPasswordHashed = password_hash($newPassword, PASSWORD_BCRYPT);
 
             global $dsn, $pdoOptions;
             $pdo = connectDatabase($dsn, $pdoOptions);
