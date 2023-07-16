@@ -34,7 +34,7 @@ if(isset($_GET["id"]) && !empty($_GET["id"]) &&
                 redirection("../../events.php?m=8");
             }
             else {
-                redirection("../../events.php?m=9");
+                redirection("../../events.php?m=8");
             }
             
         } 

@@ -45,20 +45,6 @@
 
 /* --------------------------------- DROP DOWN ITEM STYLE --------------------------------- */
 
-.dropdown-item-danger {
-    color: var(--bs-red);
-}
-
-.dropdown-item-danger:hover,
-.dropdown-item-danger:focus {
-    color: #fff;
-    background-color: var(--bs-red);
-}
-
-.dropdown-item-danger.active {
-    background-color: var(--bs-red);
-}
-
 .verified:hover {
     cursor: default;
 }
@@ -74,6 +60,26 @@
 .dropdown .verifiedText:hover {
     background-color: #fff;
     color: #8e8e8e;
+}
+
+.dropdown .dropdown-item:hover {
+    background-color: #fff;
+    color: #8e8e8e;
+}
+
+.dropdown li {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --------------------------------- END --------------------------------- */
+
+/* --------------------------------- INDEX STYLE --------------------------------- */
+
+.feature p, h3 {
+    text-align: center;
 }
 
 /* --------------------------------- END --------------------------------- */
@@ -170,6 +176,9 @@
       font-size: 3.5rem;
     }
 }
+
+
+
   
   
 

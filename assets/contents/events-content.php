@@ -5,7 +5,7 @@ require_once('assets/config/functions.php');
 global $dsn, $pdoOptions;
 $pdo = connectDatabase($dsn, $pdoOptions);
 
-$selectMyEventsSql = "SELECT * FROM events WHERE user_id = :id";
+$selectMyEventsSql = "SELECT * FROM events WHERE user_id = :id ORDER BY date_time DESC";
 $query = $pdo->prepare($selectMyEventsSql);
 $query->bindParam(':id', $_SESSION["id_user"], PDO::PARAM_INT);
 $query->execute();
@@ -175,7 +175,7 @@ $publicEventResults = $selectPublicEventQuery->fetchAll(PDO::FETCH_ASSOC);
         <div class="list-group my-3 px-5">
             <div class="d-flex w-100 justify-content-center">
                 <h5 class="mb-1 text-center">Please <a href="login.php"><button type="button"
-                            class="btn btn-primary me-2">Login</button></a> to create your own events!</h5>
+                            class="btn btn-success me-2">Login</button></a> to create your own events!</h5>
             </div>
         </div>
         <?php

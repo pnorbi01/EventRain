@@ -18,7 +18,12 @@ if ($query->rowCount() == 1) {
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="index.php" class="d-flex align-items-center mb-2 mb-lg-0 text-decoration-none">
-                <i class="bi bi-yelp" style="font-size: 1.5rem; color: cornflowerblue;"></i>
+            <lord-icon
+                src="https://cdn.lordicon.com/pjibjvxa.json"
+                trigger="hover"
+                colors="primary:#f24c00,secondary:#4bb3fd,tertiary:#3a3347"
+                style="width:40px;height:40px">
+            </lord-icon>
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -33,19 +38,17 @@ if ($query->rowCount() == 1) {
                 </a>
                 <ul class="dropdown-menu text-small " aria-labelledby="dropdownUser1">
                     <li class="verified">
-                        <a class="dropdown-item verifiedText"><i class="bi bi-patch-check-fill"></i> Verified Account</a>
+                        <a class="dropdown-item verifiedText"><img src="assets/images/verified.png" width="20px" height="20px"> Verified Account</a>
                     </li>
+                    <hr class="dropdown-divider">
                     <li>
-                        <hr class="dropdown-divider">
+                        <a class="dropdown-item" href="admin-panel.php">Admin Panel</a>
                     </li>
-                    <li><a class="dropdown-item" href="admin-panel.php">Admin Panel</a></li>
+                    <hr class="dropdown-divider">
                     <li>
-                        <hr class="dropdown-divider">
+                        <a class="dropdown-item" href="edit-profile.php">Profile</a>
                     </li>
-                    <li><a class="dropdown-item" href="edit-profile.php">Profile</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
+                    <hr class="dropdown-divider">
                     <li>
                         <a class="dropdown-item dropdown-item-danger" href="assets/php/logout.php"><i class="bi bi-box-arrow-right"></i> Sign Out</a>
                     </li>

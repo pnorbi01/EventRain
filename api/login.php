@@ -27,7 +27,7 @@ $password = $data->password;
 global $dsn, $pdoOptions;
 $pdo = connectDatabase($dsn, $pdoOptions);
 
-$sql = "SELECT user_id, password FROM users WHERE username = :username";
+$sql = "SELECT user_id, password, email FROM users WHERE username = :username";
 
 $query = $pdo->prepare($sql);
 $query->bindParam(':username', $username, PDO::PARAM_STR);
@@ -38,6 +38,8 @@ if(password_verify($password, $result["password"])) {
     $token = createCode(40);
     if(saveToken($token, $result["user_id"])) {
         $response["token"] = $token;
+        $response["username"] = $username;
+        $response["email"] = $result["email"];
         $response["message"] = "Successfully authenticated";
         sendOkResponse($response);
     }

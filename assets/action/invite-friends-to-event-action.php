@@ -17,10 +17,11 @@ if(isset($_POST["inviteFriendBtn"])) {
             global $dsn, $pdoOptions;
             $pdo = connectDatabase($dsn, $pdoOptions);
 
-            $sql = "INSERT INTO invitations (event_id, invited_user_email) VALUES (:event_id, :invited_user_email)";
+            $sql = "INSERT INTO invitations (event_id, user_id, invited_user_email) VALUES (:event_id, :user_id, :invited_user_email)";
 
             $query = $pdo->prepare($sql);
             $query->bindParam(':event_id', $eventId, PDO::PARAM_INT);
+            $query->bindParam(':user_id', $_SESSION['id_user'], PDO::PARAM_INT);
             $query->bindParam(':invited_user_email', $friend, PDO::PARAM_STR);
             $query->execute();
 

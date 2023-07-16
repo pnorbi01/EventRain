@@ -67,25 +67,25 @@ $myInvitedEventResult = $myInvitedEventQuery->fetch();
                 }
                 ?>
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1"><?= $result["event_name"] ?></h5>
+                    <h5 class="mb-1"><img src="assets/images/event-name.png" width="25px" height="25px">&nbsp;<?= $result["event_name"] ?></h5>
                 </div>
-                <p class="mb-1"><?= $result["event_type"] ?></p>
-                <small><?= $result["event_location"] ?>, <?= $result["event_street"] ?></small><br><br>
-                <small><i class="bi bi-calendar-check-fill"></i> Event created at: <strong><?php echo date("F j, Y, g:i A", strtotime($result["date_time"])); ?></strong></small><br>
-                <small><i class="bi bi-clock-fill"></i> Event starts at: <strong><?php echo date("F j, Y, g:i A", strtotime($result["event_start"])); ?></strong></small><br>
+                <p class="mb-1"><img src="assets/images/event-type.png" width="25px" height="25px">&nbsp;<?= $result["event_type"] ?></p>
+                <small><img src="assets/images/location.png" width="25px" height="25px">&nbsp;<?= $result["event_location"] ?>, <?= $result["event_street"] ?></small><br><br>
+                <small><img src="assets/images/calendar.png" width="25px" height="25px"> Event created at: <strong><?php echo date("F j, Y, g:i A", strtotime($result["date_time"])); ?></strong></small><br>
+                <small><img src="assets/images/clock.png" width="25px" height="25px"> Event starts at: <strong><?php echo date("F j, Y, g:i A", strtotime($result["event_start"])); ?></strong></small><br>
                 <?php 
                 $eventClose = date('F j, Y, g:i A', strtotime($result["event_close"]));
                 ?>
-                <small><i class="bi bi-door-open-fill"></i> Event closes at: 
+                <small><img src="assets/images/event-close.png" width="25px" height="25px"> Event closes at: 
                     <strong>
                         <?php if(date('F j, Y, g:i A') < $eventClose) { ?>
                         <?= $eventClose ?>
                         <?php } else { ?>
-                        <span style="color:#f00;"><strong><i class="bi bi-lock-fill" title="Event is closed"></i></strong></span>
+                        <span><img src="assets/images/closed.png" width="35px" height="35px"></span>
                         <?php } ?>
                     </strong>
                 </small><br>
-                <small><i class="bi bi-person-fill"></i> Event created by:
+                <small><img src="assets/images/created-by.png" width="25px" height="25px"> Event created by:
                     <strong><?= $creatorResult["username"] ?></strong></small><br><br>
                 <?php if($result["user_id"] == $_SESSION["id_user"]){ ?>
                 <form method="post" action="assets/action/selected-event-action.php">
