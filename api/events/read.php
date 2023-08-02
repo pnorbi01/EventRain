@@ -8,11 +8,6 @@ if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
     sendBadRequestResponse();
 }
 
-$contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
-if(strcasecmp($contentType, 'application/json') != 0){
-    sendBadRequestResponse();
-}
-
 $user = getUserIfAuthenticated();
 
 if(isset($user)) {

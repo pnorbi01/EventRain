@@ -11,25 +11,28 @@ if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
 $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
 if(strcasecmp($contentType, 'application/json') != 0){
     sendBadRequestResponse();
-} */
+}*/
 
 $user = getUserIfAuthenticated();
 
 if(isset($user)) {
     $userId = $user["user_id"];
     $userEmail = $user["email"];
+    $state = 'unread';
 
     global $dsn, $pdoOptions;
     $pdo = connectDatabase($dsn, $pdoOptions);
 
-    $sql = "SELECT * FROM invitations, users, events WHERE invited_user_email = :email AND invitations.user_id = users.user_id AND invitations.event_id = events.event_id";
+    $sql = "SELECT * FROM invitations WHERE invited_user_email = :email AND state = :state";
 
     $query = $pdo->prepare($sql);
     $query->bindParam(':email', $userEmail, PDO::PARAM_STR);
+    $query->bindParam(':state', $state, PDO::PARAM_STR);
     $query->execute();
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    sendOkResponse($result);
+    $response["unreadNotifications"] = count($result);
+    sendOkResponse($response);
 }
 else {
     sendUnauthorizedResponse();

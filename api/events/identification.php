@@ -1,35 +1,53 @@
 <?php
-
 require_once("../../assets/config/db_config.php");
 require_once("../../assets/config/config.php");
+require_once("../../assets/config/functions.php");
 require_once("../response.php");
 
 if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
     sendBadRequestResponse();
 }
-/*
+
 $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
-if(strcasecmp($contentType, 'application/json') != 0){
+if(strcasecmp($contentType, 'application/json') != 0) {
+    echo $contentType;
     sendBadRequestResponse();
-} */
+}
+
+$json = file_get_contents('php://input');
+$data = json_decode($json);
+
+if(!isset($data->specifiedToken)) {
+    sendBadRequestResponse();
+}
+
+$specifiedToken = $data->specifiedToken;
 
 $user = getUserIfAuthenticated();
 
 if(isset($user)) {
     $userId = $user["user_id"];
-    $userEmail = $user["email"];
 
     global $dsn, $pdoOptions;
     $pdo = connectDatabase($dsn, $pdoOptions);
 
-    $sql = "SELECT * FROM invitations, users, events WHERE invited_user_email = :email AND invitations.user_id = users.user_id AND invitations.event_id = events.event_id";
+    $sql = "SELECT * FROM api WHERE user_id = :user_id AND token = :token";
 
     $query = $pdo->prepare($sql);
-    $query->bindParam(':email', $userEmail, PDO::PARAM_STR);
+    $query->bindParam(':user_id', $userId, PDO::PARAM_INT);
+    $query->bindParam(':token', $specifiedToken, PDO::PARAM_STR);
     $query->execute();
-    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    $result = $query->fetch();
 
-    sendOkResponse($result);
+    if($query->rowCount() == 1) {
+        $response["token"] = $specifiedToken;
+        $response["message"] = "Successful identification";
+        sendOkResponse($response);
+    }
+    else {
+        $response["message"] = "Error occured while identifying yourself, please try again.";
+        sendServerErrorResponse($response);
+    }
 }
 else {
     sendUnauthorizedResponse();
@@ -74,3 +92,6 @@ function getUser($userId) {
 
     return $result;
 }
+
+
+exit;

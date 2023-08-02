@@ -188,6 +188,12 @@ function sendData($username, $email, $token)
     return sendMail($email, "Registration", $body);
 }
 
+function sendReminder($email, $eventName)
+{
+    $body = "The following event: $eventName, is about to start do not forget!";
+    return sendMail($email, "Reminder: The event will begin within 1 hour", $body);
+}
+
 /**
  * Function inserts data in database for e-mail sending failure
  *

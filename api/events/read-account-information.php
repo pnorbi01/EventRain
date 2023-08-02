@@ -7,25 +7,19 @@ require_once("../response.php");
 if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
     sendBadRequestResponse();
 }
-/*
-$contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
-if(strcasecmp($contentType, 'application/json') != 0){
-    sendBadRequestResponse();
-} */
 
 $user = getUserIfAuthenticated();
 
 if(isset($user)) {
     $userId = $user["user_id"];
-    $userEmail = $user["email"];
 
     global $dsn, $pdoOptions;
     $pdo = connectDatabase($dsn, $pdoOptions);
 
-    $sql = "SELECT * FROM invitations, users, events WHERE invited_user_email = :email AND invitations.user_id = users.user_id AND invitations.event_id = events.event_id";
+    $sql = "SELECT * FROM users WHERE user_id = :user_id";
 
     $query = $pdo->prepare($sql);
-    $query->bindParam(':email', $userEmail, PDO::PARAM_STR);
+    $query->bindParam(':user_id', $userId, PDO::PARAM_INT);
     $query->execute();
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
 

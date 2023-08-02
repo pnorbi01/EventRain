@@ -1,0 +1,990 @@
+openapi: 3.0.0
+servers:
+  - description: EventRain
+    url: http://localhost/EventRain
+info:
+  version: "1.0.0"
+  title: EventRain
+  description: The API for EventRain
+paths:
+  /api/login.php:
+    post:
+      tags:
+        - Login
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+  /api/logout.php:
+    post:
+      tags:
+        - Logout
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogoutResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+  /api/events/change-password.php:
+    post:
+      tags:
+        - Change password
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangePasswordResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+  /api/events/check-token.php:
+    post:
+      tags:
+        - Check token
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CheckTokenResponse' 
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckTokenRequest'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+  /api/events/create.php:
+    post:
+      tags:
+        - Create event
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEventResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEventRequest'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+  /api/events/delete.php:
+    delete:
+      tags:
+        - Delete event
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteEventResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+        - in: query
+          name: eventId
+          schema:
+            type: integer
+          description: The event's id, which will be deleted
+  /api/events/identification.php:
+    post:
+      tags:
+        - Identification
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentificationResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentificationRequest'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+  /api/events/invitation-detail.php:
+    post:
+      tags:
+        - Invitation detail
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvitationDetailResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+        - in: query
+          name: eventId
+          schema:
+            type: integer
+          description: The event's id
+  /api/events/read-account-information.php:
+    post:
+      tags:
+        - Read account information
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadAccountInformationResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+  /api/events/set-notification-to-read.php:
+    put:
+      tags:
+        - Set notification to read
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetNotificationToReadResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerErrorResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+        - in: query
+          name: eventId
+          schema:
+            type: integer
+          description: The event's id
+  /api/events/unread-notifications.php:
+    post:
+      tags:
+        - Unread notifications
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnreadNotificationsResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+  /api/events/update-status.php:
+    put:
+      tags:
+        - Update status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateStatusResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerErrorResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+        - in: query
+          name: eventId
+          schema:
+            type: integer
+          description: The event's id
+        - in: query
+          name: status
+          schema:
+            type: string
+          description: The event's status, which will be updated
+  /api/events/update.php:
+    put:
+      tags:
+        - Update event
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateEventResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEventRequest'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+        - in: query
+          name: eventId
+          schema:
+            type: integer
+          description: The event's id, which will be updated
+  /api/events/read.php:
+    post:
+      tags:
+        - Read events
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadEventsResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+  /api/events/read-notifications.php:
+    post:
+      tags:
+        - Read notifications
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadNotificationsResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+    
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          example: 'username'
+        password:
+          type: string
+          example: 'password'
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: 'token'
+        username:
+          type: string
+          example: 'username'
+        email:
+          type: string
+          example: 'email'
+        message:
+          type: string
+          example: 'message'
+    LogoutResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'
+    ChangePasswordRequest:
+      type: object
+      properties:
+        currentPassword:
+          type: string
+          example: 'currentPassword'
+        newPassword:
+          type: string
+          example: 'newPassword'
+    ChangePasswordResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'
+    CheckTokenRequest:
+      type: object
+      properties:
+        password:
+          type: string
+          example: 'password'
+    CheckTokenResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'
+        token:
+          type: string
+          example: 'token'
+    CreateEventRequest:
+      type: object
+      properties:
+        eventType:
+          type: string
+          example: 'eventType'
+        eventName:
+          type: string
+          example: 'eventName'
+        eventStatus:
+          type: string
+          example: 'eventStatus'
+        eventLocation:
+          type: string
+          example: 'eventLocation'
+        eventStreet:
+          type: string
+          example: 'eventStreet'
+        eventStart:
+          type: string
+          format: date
+          example: 'eventStart'
+        eventDeadline:
+          type: string
+          format: date
+          example: 'eventDeadline'
+    CreateEventResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'
+        event:
+          type: object
+          properties:
+            message:
+              type: string
+              example: 'message'
+            eventType:
+              type: string
+              example: 'eventType'
+            eventName:
+              type: string
+              example: 'eventName'
+            eventStatus:
+              type: string
+              example: 'eventStatus'
+            eventLocation:
+              type: string
+              example: 'eventLocation'
+            eventStreet:
+              type: string
+              example: 'eventStreet'
+            eventStart:
+              type: string
+              format: date
+              example: 'eventStart'
+            eventDeadline:
+              type: string
+              format: date
+              example: 'eventDeadline'
+            id:
+              type: integer
+              example: 'id'
+    DeleteEventResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'
+    IdentificationRequest:
+      type: object
+      properties:
+        specifiedToken:
+          type: string
+          example: 'specifiedToken'
+    IdentificationResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: 'token'
+        message:
+          type: string
+          example: 'message'
+    InvitationDetailResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          invitation_id:
+            type: integer
+            example: 'invitation_id'
+          event_id:
+            type: integer
+            example: 'event_id'
+          user_id:
+            type: integer
+            example: 'user_id'
+          invited_user_email:
+            type: string
+            example: 'invited_user_email'
+          status:
+            type: string
+            example: 'status'
+          state:
+            type: string
+            example: 'state'
+          date_time:
+            type: string
+            format: date
+            example: 'date_time'
+    ReadAccountInformationResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          user_id:
+            type: integer
+            example: 'user_id'
+          username:
+            type: string
+            example: 'username'
+          firstname:
+            type: string
+            example: 'firstname'
+          lastname:
+            type: string
+            example: 'lastname'
+          image:
+            type: string
+            example: 'image'
+          email:
+            type: string
+            example: 'email'
+          password:
+            type: string
+            example: 'password'
+          token:
+            type: string
+            example: 'token'
+          level:
+            type: string
+            example: 'level'
+          active:
+            type: integer
+            example: 'active'
+          registration_expires:
+            type: string
+            format: date
+            example: 'registration_expires'
+          date_time:
+            type: string
+            format: date
+            example: 'date_time'
+    SetNotificationToReadResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'
+    UnreadNotificationsResponse:
+      type: object
+      properties:
+        unreadNotifications:
+          type: integer
+          example: 'unreadNotifications'
+    UpdateStatusResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'
+    UpdateEventRequest:
+      type: object
+      properties:
+        event_type:
+          type: string
+          example: 'eventType'
+        event_name:
+          type: string
+          example: 'eventName'
+        event_status:
+          type: string
+          example: 'eventStatus'
+        event_location:
+          type: string
+          example: 'eventLocation'
+        event_street:
+          type: string
+          example: 'eventStreet'
+    UpdateEventResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'
+        event:
+          type: object
+          properties:
+            event_location:
+              type: string
+              example: 'event_location'
+            event_name:
+              type: string
+              example: 'event_name'
+            event_status:
+              type: string
+              example: 'event_status'
+            event_street:
+              type: string
+              example: 'event_street'
+            event_type:
+              type: string
+              example: 'event_type'
+            id:
+              type: integer
+              example: 'id'
+    ReadEventsResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          event_id:
+            type: integer
+            example: 'event_id'
+          user_id:
+            type: integer
+            example: 'user_id'
+          event_type:
+            type: string
+            example: 'event_type'
+          event_status:
+            type: string
+            example: 'event_status'
+          event_name:
+            type: string
+            example: 'event_name'
+          event_location:
+            type: string
+            example: 'event_location'
+          event_street:
+            type: string
+            example: 'event_street'
+          event_active:
+            type: string
+            example: 'event_active'
+          event_start:
+            type: string
+            format: date
+            example: 'event_start'
+          event_close:
+            type: string
+            format: date
+            example: 'event_close'
+          date_time:
+            type: string
+            format: date
+            example: 'date_time'
+    ReadNotificationsResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          invitation_id:
+            type: integer
+            example: 'invitation_id'
+          event_id:
+            type: integer
+            example: 'event_id'
+          user_id:
+            type: integer
+            example: 'user_id'
+          invited_user_email:
+            type: string
+            example: 'invited_user_email'
+          status:
+            type: string
+            example: 'status'
+          state:
+            type: string
+            example: 'state'
+          date_time:
+            type: string
+            format: date
+            example: 'date_time'
+          username:
+            type: string
+            example: 'username'
+          firstname:
+            type: string
+            example: 'firstname'
+          lastname:
+            type: string
+            example: 'lastname'
+          image:
+            type: string
+            example: 'image'
+          email:
+            type: string
+            example: 'email'
+          password:
+            type: string
+            example: 'password'
+          token:
+            type: string
+            example: 'token'
+          level:
+            type: string
+            example: 'level'
+          active:
+            type: integer
+            example: 'active'
+          registration_expires:
+            type: string
+            format: date
+            example: 'registration_expires'
+          event_type:
+            type: string
+            example: 'event_type'
+          event_status:
+            type: string
+            example: 'event_status'
+          event_name:
+            type: string
+            example: 'event_name'
+          event_location:
+            type: string
+            example: 'event_location'
+          event_street:
+            type: string
+            example: 'event_street'
+          event_active:
+            type: string
+            example: 'event_active'
+          event_start:
+            type: string
+            format: date
+            example: 'event_start'
+          event_close:
+            type: string
+            format: date
+            example: 'event_close'
+    BadRequestResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'
+    ServerErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'
+    UnauthorizedResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'
+    NotFoundResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'

@@ -11,7 +11,14 @@ if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
 $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
 if(strcasecmp($contentType, 'application/json') != 0){
     sendBadRequestResponse();
-} */
+}*/
+
+if(isset($_GET["eventId"])) {
+    $eventId = $_GET["eventId"];
+}
+else {
+    sendBadRequestResponse();
+}
 
 $user = getUserIfAuthenticated();
 
@@ -22,10 +29,11 @@ if(isset($user)) {
     global $dsn, $pdoOptions;
     $pdo = connectDatabase($dsn, $pdoOptions);
 
-    $sql = "SELECT * FROM invitations, users, events WHERE invited_user_email = :email AND invitations.user_id = users.user_id AND invitations.event_id = events.event_id";
+    $sql = "SELECT * FROM invitations WHERE event_id = :event_id AND invited_user_email = :invited_user_email";
 
     $query = $pdo->prepare($sql);
-    $query->bindParam(':email', $userEmail, PDO::PARAM_STR);
+    $query->bindParam(':invited_user_email', $userEmail, PDO::PARAM_STR);
+    $query->bindParam(':event_id', $eventId, PDO::PARAM_INT);
     $query->execute();
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
 

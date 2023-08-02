@@ -7,11 +7,11 @@ require_once("../response.php");
 if(strcasecmp($_SERVER['REQUEST_METHOD'], 'PUT') != 0){
     sendBadRequestResponse();
 }
-
+/*
 $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
 if(strcasecmp($contentType, 'application/json') != 0){
     sendBadRequestResponse();
-}
+} */
 
 if(isset($_GET["eventId"])) {
     $eventId = $_GET["eventId"];
