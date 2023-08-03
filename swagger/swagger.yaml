@@ -582,6 +582,9 @@ components:
         email:
           type: string
           example: 'email'
+        image:
+          type: string
+          example: 'image'
         message:
           type: string
           example: 'message'
