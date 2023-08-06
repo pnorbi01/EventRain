@@ -558,7 +558,159 @@ paths:
           schema:
             type: string
           description: Token
-    
+  /api/events/read-gifts.php:
+    post:
+      tags:
+        - Read gifts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadGiftsResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+        - in: query
+          name: eventId
+          schema:
+            type: integer
+          description: The event's id
+  /api/events/delete-gift.php:
+    delete:
+      tags:
+        - Delete gift
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteGiftResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+        - in: query
+          name: giftId
+          schema:
+            type: integer
+          description: The gift's id
+        - in: query
+          name: eventId
+          schema:
+            type: integer
+          description: The event's id
+  /api/events/read-reserved-gifts.php:
+    post:
+      tags:
+        - Read reserved gifts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadReservedGiftsResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+  /api/events/release-gift.php:
+    put:
+      tags:
+        - Release reserved gift
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReleaseReservedGiftResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerErrorResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+        - in: query
+          name: giftId
+          schema:
+            type: integer
+          description: The gift's id
+        
 components:
   schemas:
     LoginRequest:
@@ -582,9 +734,6 @@ components:
         email:
           type: string
           example: 'email'
-        image:
-          type: string
-          example: 'image'
         message:
           type: string
           example: 'message'
@@ -800,19 +949,19 @@ components:
     UpdateEventRequest:
       type: object
       properties:
-        event_type:
+        eventType:
           type: string
           example: 'eventType'
-        event_name:
+        eventName:
           type: string
           example: 'eventName'
-        event_status:
+        eventStatus:
           type: string
           example: 'eventStatus'
-        event_location:
+        eventLocation:
           type: string
           example: 'eventLocation'
-        event_street:
+        eventStreet:
           type: string
           example: 'eventStreet'
     UpdateEventResponse:
@@ -967,6 +1116,69 @@ components:
             type: string
             format: date
             example: 'event_close'
+    ReadGiftsResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          gift_id:
+            type: integer
+            example: 'gift_id'
+          event_id:
+            type: integer
+            example: 'event_id'
+          user_id:
+            type: integer
+            example: 'user_id'
+          name:
+            type: string
+            example: 'name'
+          status:
+            type: string
+            example: 'status'
+          date_time:
+            type: string
+            format: date
+            example: 'date_time'
+    DeleteGiftResponse:
+      type: object
+      properties:
+        message: 
+          type: string
+          example: 'message'
+    ReadReservedGiftsResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          gift_id:
+            type: integer
+            example: 'gift_id'
+          event_id:
+            type: integer
+            example: 'event_id'
+          user_id:
+            type: integer
+            example: 'user_id'
+          name:
+            type: string
+            example: 'name'
+          status:
+            type: string
+            example: 'status'
+          date_time:
+            type: string
+            format: date
+            example: 'date_time'
+          event_name:
+            type: string
+            example: 'event_name'
+    ReleaseReservedGiftResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'
     BadRequestResponse:
       type: object
       properties:

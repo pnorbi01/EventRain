@@ -20,16 +20,16 @@ $user = getUserIfAuthenticated();
 if(isset($user)) {
     $userId = $user["user_id"];
     $status = 'available';
-    $userAfterRelease = NULL;
+    $user = NULL;
 
     global $dsn, $pdoOptions;
     $pdo = connectDatabase($dsn, $pdoOptions);
 
-    $sql = "UPDATE gifts SET status = :status, user_id = :userAfterRelease WHERE gift_id = :giftId AND user_id = :userId";
+    $sql = "UPDATE gifts SET status = :status, user_id = :user WHERE gift_id = :giftId AND user_id = :userId";
 
     $query = $pdo->prepare($sql);
     $query->bindParam(':status', $status, PDO::PARAM_STR);
-    $query->bindParam(':userAfterRelease', $userAfterRelease, PDO::PARAM_STR);
+    $query->bindParam(':user', $user, PDO::PARAM_STR);
     $query->bindParam(':giftId', $giftId, PDO::PARAM_INT);
     $query->bindParam(':userId', $userId, PDO::PARAM_INT);
     $query->execute();
