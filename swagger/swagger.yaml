@@ -710,6 +710,52 @@ paths:
           schema:
             type: integer
           description: The gift's id
+  /api/events/reserve-gift.php:
+    put:
+      tags:
+        - Reserve gift
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReserveGiftResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerErrorResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+        - in: query
+          name: giftId
+          schema:
+            type: integer
+          description: The gift's id
+        - in: query
+          name: eventId
+          schema:
+            type: integer
+          description: The event's id
         
 components:
   schemas:
@@ -1174,6 +1220,12 @@ components:
             type: string
             example: 'event_name'
     ReleaseReservedGiftResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'
+    ReserveGiftResponse:
       type: object
       properties:
         message:
