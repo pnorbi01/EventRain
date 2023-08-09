@@ -82,6 +82,26 @@
     text-align: center;
 }
 
+.btn {
+    background-color: #2C3E50;
+    color: #FFF;
+    border-color: #2C3E50;
+}
+
+.btn:hover {
+    background-color: transparent;
+    color: #2C3E50;
+    border-color: #2C3E50;
+}
+
+.site-header {
+    background: rgba( 1, 9, 14, 0.55 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 9px );
+    -webkit-backdrop-filter: blur( 9px );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
 /* --------------------------------- END --------------------------------- */
 
 /* --------------------------------- EDIT PROFILE STYLE --------------------------------- */
@@ -140,6 +160,10 @@
     padding-right: 0;
     margin-left: 1rem;
     margin-right: 1rem;
+}
+
+.nav .nav-link {
+    color: #000;
 }
 
 /* --------------------------------- END --------------------------------- */

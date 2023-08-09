@@ -530,8 +530,9 @@ function isClosed($eventId) {
     $result = $query->fetch();
 
     if ($query->rowCount() == 1) {
-        $eventClose = date('F j, Y, g:i A', strtotime($result["event_close"]));
-        if(date('F j, Y, g:i A') > $eventClose) {
+        $eventClose = strtotime($result["event_close"]);
+        $currentDateTime = time();
+        if($currentDateTime > $eventClose) {
             return true;
         }
         else {

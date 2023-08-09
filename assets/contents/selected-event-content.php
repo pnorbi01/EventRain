@@ -69,20 +69,20 @@ $MyEventsResult = $query->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <p class="mb-1"><?= $result["event_type"] ?></p>
                 <small><img src="assets/images/location.png" width="25px" height="25px">&nbsp;<?= $result["event_location"] ?>, <?= $result["event_street"] ?></small><br><br>
-                <small><img src="assets/images/calendar.png" width="25px" height="25px"> Event created at:
+                <small><img src="assets/images/created-at.png" width="25px" height="25px"> Event created at:
                     <strong><?php echo date("F j, Y, g:i A", strtotime($result["date_time"])); ?></strong></small><br>
-                <small><img src="assets/images/clock.png" width="25px" height="25px"> Event starts at:
+                <small><img src="assets/images/event-start.png" width="25px" height="25px"> Event starts at:
                     <strong><?php echo date("F j, Y, g:i A", strtotime($result["event_start"])); ?></strong></small><br>
                 <?php 
-                $eventClose = date('F j, Y, g:i A', strtotime($result["event_close"]));
+                $eventClose = strtotime($result["event_close"]);
+                $currentDateTime = time();
                 ?>
                 <small><img src="assets/images/event-close.png" width="25px" height="25px"> Event closes at:
                     <strong>
-
-                        <?php if(date('F j, Y, g:i A') < $eventClose) { ?>
-                        <?= $eventClose ?>
+                        <?php if($currentDateTime < $eventClose) { ?>
+                        <?= date('F j, Y, g:i A', $eventClose); ?>
                         <?php } else { ?>
-                        <span><img src="assets/images/closed.png" width="35px" height="35px"></span>
+                        <span><img src="assets/images/closed.png" width="25px" height="25px"></span>
                         <?php } ?>
                     </strong>
                 </small><br>
@@ -93,7 +93,7 @@ $MyEventsResult = $query->fetchAll(PDO::FETCH_ASSOC);
                     <input type="hidden" name="eventId" value="<?= $result["event_id"] ?>">
                     <input class="btn btn-outline-danger" type="submit" name="deleteEvent" value="Delete Current Event">
                 </form>
-                <?php if(date('F j, Y, g:i A') < $eventClose) { ?>
+                <?php if($currentDateTime < $eventClose) { ?>
                 <a href="modify-selected-event.php?id=<?= $result["event_id"] ?>"><input
                         class="btn btn-outline-primary mb-3" type="submit" name="modifyEvent" value="Modify Event"></a>
                 <a href="invite-friends-to-event.php?id=<?= $result["event_id"] ?>"><input
@@ -108,14 +108,14 @@ $MyEventsResult = $query->fetchAll(PDO::FETCH_ASSOC);
                 } else {
                     if(isAuthenticated()){
                         if ($joinedEventQuery->rowCount() == 0) {
-                            if(date('F j, Y, g:i A') < $eventClose) {
+                            if($currentDateTime < $eventClose) {
                 ?>
                 <a
                     href="assets/action/want-to-join-action.php?id=<?= $result["event_id"] ?>&email=<?= $_SESSION["user_email"] ?>"><input
                         class="btn btn-outline-primary mb-3" type="submit" name="wantToJoin" value="Join party"></a>
                 <?php   }
                     } 
-                    else { if(date('F j, Y, g:i A') < $eventClose) { ?>
+                    else { if($currentDateTime < $eventClose) { ?>
                 <a
                     href="assets/action/unjoin-action.php?id=<?= $result["event_id"] ?>&email=<?= $_SESSION["user_email"] ?>"><input
                         class="btn btn-outline-danger mb-3" type="submit" name="unJoin" value="Quit party"></a>
@@ -139,5 +139,18 @@ $MyEventsResult = $query->fetchAll(PDO::FETCH_ASSOC);
             }
         }
         ?>
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <span class="fs-2 fw-bold mb-5 mt-5">Check it out on Google Map</span>
+            <iframe
+                width="100%"
+                height="450"
+                style="border:0"
+                loading="lazy"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAynXcJuGc4oaBWT-SRLyHegDlGYHYs7v0
+                    &q=<?= $result["event_location"] . ", " . $result["event_street"] ?>">
+            </iframe>
+        </div>
     </div>
 </div>
