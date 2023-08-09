@@ -53,13 +53,7 @@
         <div class="feature col">
             <div
                 class="feature-icon d-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-2">
-                <lord-icon
-                    src="https://cdn.lordicon.com/cmrzxpzz.json"
-                    trigger="loop"
-                    delay="2000"
-                    colors="primary:#121331,secondary:#08a88a"
-                    style="width:70px;height:70px">
-                </lord-icon>
+                <img src="assets/images/free.png" width="45px" height="45px">
             </div>
             <h3 class="fs-2">It is for free</h3>
             <p>Our application is completely free, includes all functions and will remain so forever. You will not get any ads while using our app.</p>
@@ -67,13 +61,7 @@
         <div class="feature col">
             <div
                 class="feature-icon d-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-2">
-                <lord-icon
-                    src="https://cdn.lordicon.com/nkmsrxys.json"
-                    trigger="loop"
-                    delay="2000"
-                    colors="primary:#121331,secondary:#08a88a"
-                    style="width:70px;height:70px">
-                </lord-icon>
+                <img src="assets/images/available-wishlist.png" width="45px" height="45px">
             </div>
             <h3 class="fs-2">There is a wishlist</h3>
             <p>You can build your own wishlist for your own event, so you can get whatever gifts you want for your event.</p>
@@ -81,13 +69,7 @@
         <div class="feature col">
             <div
                 class="feature-icon d-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-2">
-                <lord-icon
-                    src="https://cdn.lordicon.com/baiwwlyi.json"
-                    trigger="loop"
-                    delay="2000"
-                    colors="primary:#121331,secondary:#08a88a"
-                    style="width:70px;height:70px">
-                </lord-icon>
+                <img src="assets/images/easy-to-use.png" width="45px" height="45px">
             </div>
             <h3 class="fs-2">It is easy to use</h3>
             <p>No matter how old you are, you can quickly find everything you want in our application, as our interface is clean, transparent and easy to use.</p>
@@ -95,13 +77,7 @@
         <div class="feature col">
             <div
                 class="feature-icon d-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-2">
-                <lord-icon
-                    src="https://cdn.lordicon.com/gqzfzudq.json"
-                    trigger="loop"
-                    delay="2000"
-                    colors="primary:#08a88a,secondary:#121331"
-                    style="width:70px;height:70px">
-                </lord-icon>
+                <img src="assets/images/available-worldwide.png" width="45px" height="45px">
             </div>
             <h3 class="fs-2">Available Worldwide</h3>
             <p>No matter where you are. You can use our service everywhere across the world.</p>

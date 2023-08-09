@@ -46,7 +46,8 @@ $creatorQuery->bindParam(':id', $eventId, PDO::PARAM_INT);
 $creatorQuery->execute();
 $creatorResult = $creatorQuery->fetch();
 
-$eventClose = date('Y-m-d h:i', strtotime($creatorResult["event_close"]));
+$eventClose = strtotime($creatorResult["event_close"]);
+$currentDateTime = time();
 
 $userSql = "SELECT * FROM users, events WHERE events.event_id = :event_id AND users.user_id = :user_id";
 $userQuery = $pdo->prepare($userSql);
@@ -119,7 +120,7 @@ $selectCommentsResult = $selectCommentsQuery->fetchAll(PDO::FETCH_ASSOC);
                         }
                     } 
                     else { 
-                            if(date('Y-m-d h:i') < $eventClose) { ?>
+                            if($currentDateTime < $eventClose) { ?>
                 <a href="assets/action/remove-gift-action.php?id=<?= $result["gift_id"] ?>&event_id=<?= $eventId ?>" class="btn btn-danger">Remove gift</a>
                 <?php 
                             } else { ?>
@@ -184,7 +185,7 @@ $selectCommentsResult = $selectCommentsQuery->fetchAll(PDO::FETCH_ASSOC);
                         <div class="form-outline w-100">
                             <textarea class="form-control" id="textAreaExample" name="comment" rows="4" style="background: #fff;" placeholder="Type your comment"></textarea>
                         </div><br>
-                        <?php if(date('Y-m-d h:i') < $eventClose) { ?>
+                        <?php if($currentDateTime < $eventClose) { ?>
                             <input type="submit" name="postComment" value="Post comment" class="btn btn-outline-primary">
                         <?php 
                               } 
