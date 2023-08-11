@@ -881,6 +881,11 @@ components:
           type: string
           format: date
           example: 'eventDeadline'
+        gifts:
+          type: array
+          items:
+            type: string
+            example: "gift"
     CreateEventResponse:
       type: object
       properties:

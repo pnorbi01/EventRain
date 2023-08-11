@@ -3,6 +3,7 @@
 require_once("../../assets/config/db_config.php");
 require_once("../../assets/config/config.php");
 require_once("../response.php");
+require_once("../../assets/config/functions.php");
 
 if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
     sendBadRequestResponse();
@@ -23,6 +24,9 @@ $eventLocation = $data->eventLocation;
 $eventStreet = $data->eventStreet;
 $eventStart = $data->eventStart;
 $eventDeadline = $data->eventDeadline;
+$selectedGifts = array_map(function ($selectedGifts) {
+    return trim(strip_tags($selectedGifts));
+}, $data->gifts);
 
 if(!isset($data->eventType) || !isset($data->eventName) || !isset($data->eventStatus) || !isset($data->eventLocation) || !isset($data->eventStreet) || !isset($data->eventStart) || !isset($data->eventDeadline)) {
     sendBadRequestResponse();
@@ -50,9 +54,17 @@ if(isset($user)) {
     $query->execute();
 
     $lastInsertedId = $pdo->lastInsertId();
+    $allValuesCorrect = true;
 
     if ($lastInsertedId > 0) {
         $data->id = $pdo->lastInsertId();
+        for ($i = 0; $i < count($selectedGifts); $i++) {
+            if (!empty($selectedGifts[$i]) and !dataExists('gift_id', 'gifts', ['event_id', 'name'], [$lastInsertedId, $selectedGifts[$i]])) {
+                insertIntoGiftsTable($lastInsertedId, $selectedGifts[$i]);
+            } else {
+                $allValuesCorrect = false;
+            }
+        }
         $response["message"] = "Event created successfully";
         $response["event"] = $data;
         sendOkResponse($response);
