@@ -201,6 +201,31 @@
     }
 }
 
+/* --------------------------------- Customizable Email --------------------------------- */
+
+.customizableEmailContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.emailTitle {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.emailBtn {
+    margin-top: 15px;
+    background-color: brown;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: #FFF;
+}
+
 
 
   
