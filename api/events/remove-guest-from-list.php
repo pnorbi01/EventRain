@@ -4,12 +4,13 @@ require_once("../../assets/config/db_config.php");
 require_once("../../assets/config/config.php");
 require_once("../response.php");
 
-if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
+if(strcasecmp($_SERVER['REQUEST_METHOD'], 'DELETE') != 0){
     sendBadRequestResponse();
 }
 
-if(isset($_GET["eventId"])) {
+if(isset($_GET["eventId"]) && isset($_GET["guest"])) {
     $eventId = $_GET["eventId"];
+    $guest = $_GET["guest"];
 }
 else {
     sendBadRequestResponse();
@@ -23,25 +24,20 @@ if(isset($user)) {
     global $dsn, $pdoOptions;
     $pdo = connectDatabase($dsn, $pdoOptions);
 
-    $sql = "SELECT * FROM gifts WHERE event_id = :event_id";
+    $sql = "DELETE FROM invitations WHERE event_id = :event_id AND invited_user_email = :invited_user_email";
 
     $query = $pdo->prepare($sql);
     $query->bindParam(':event_id', $eventId, PDO::PARAM_INT);
+    $query->bindParam(':invited_user_email', $guest, PDO::PARAM_STR);
     $query->execute();
-    $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    $reservedGifts = 0;
-
-    foreach ($result as $row) {
-        if ($row['status'] === 'reserved') {
-            $reservedGifts++;
-        }
+    if($query->rowCount() > 0) {
+        $response["message"] = "Successfully deleted";
+        sendOkResponse($response);
     }
-
-    $response["reservedGifts"] = $reservedGifts;
-    $response["numberOfGifts"] = count($result);
-    $response["gifts"] = $result;
-    sendOkResponse($response);
+    else {
+        sendNotFoundResponse();
+    }
 }
 else {
     sendUnauthorizedResponse();
