@@ -792,7 +792,87 @@ paths:
           schema:
             type: string
           description: Token
-        
+  /api/events/read-guestlist.php:
+    post:
+      tags:
+        - Read guestlist
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadGuestlistResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+        - in: query
+          name: eventId
+          schema:
+            type: integer
+          description: The event's id
+  /api/events/remove-guest-from-list.php:
+    delete:
+      tags:
+        - Remove guest from list
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoveGuestFromListResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+        - in: query
+          name: eventId
+          schema:
+            type: integer
+          description: The event's id
+        - in: query
+          name: guest
+          schema:
+            type: string
+          description: The guest's email
 components:
   schemas:
     LoginRequest:
@@ -1204,29 +1284,38 @@ components:
             format: date
             example: 'event_close'
     ReadGiftsResponse:
-      type: array
-      items:
-        type: object
-        properties:
-          gift_id:
-            type: integer
-            example: 'gift_id'
-          event_id:
-            type: integer
-            example: 'event_id'
-          user_id:
-            type: integer
-            example: 'user_id'
-          name:
-            type: string
-            example: 'name'
-          status:
-            type: string
-            example: 'status'
-          date_time:
-            type: string
-            format: date
-            example: 'date_time'
+      type: object
+      properties:
+        reservedGifts:
+          type: integer
+          example: 'reserved_gifts'
+        numberOfGifts:
+          type: integer
+          example: 'number_of_gifts'
+        gifts:
+          type: array
+          items:
+            type: object
+            properties:
+              gift_id:
+                type: integer
+                example: 'gift_id'
+              event_id:
+                type: integer
+                example: 'event_id'
+              user_id:
+                type: integer
+                example: 'user_id'
+              name:
+                type: string
+                example: 'name'
+              status:
+                type: string
+                example: 'status'
+              date_time:
+                type: string
+                format: date
+                example: 'date_time'
     DeleteGiftResponse:
       type: object
       properties:
@@ -1273,6 +1362,47 @@ components:
           type: string
           example: 'message'
     ReleaseAllReservedGiftsResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'
+    ReadGuestlistResponse:
+      type: object
+      properties:
+        attendingGuests:
+          type: integer
+          example: 'attending_guests'
+        numberOfGuests:
+          type: integer
+          example: 'number_of_guests'
+        guest:
+          type: array
+          items:
+            type: object
+            properties:
+              event_id:
+                type: integer
+                example: 'event_id'
+              invited_user_email:
+                type: string
+                example: 'invited_user_email'
+              status:
+                type: string
+                example: 'status'
+              state:
+                type: string
+                example: 'state'
+              username:
+                type: string
+                example: 'username'
+              email:
+                type: string
+                example: 'email'
+              image:
+                type: string
+                example: 'image'
+    RemoveGuestFromListResponse:
       type: object
       properties:
         message:
