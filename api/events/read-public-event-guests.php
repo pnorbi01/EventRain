@@ -23,24 +23,15 @@ if(isset($user)) {
     global $dsn, $pdoOptions;
     $pdo = connectDatabase($dsn, $pdoOptions);
 
-    $sql = "SELECT invitations.event_id, invitations.invited_user_email, invitations.status, invitations.state, users.username, users.email, users.image, users.level FROM invitations, users WHERE invitations.event_id = :event_id AND invitations.invited_user_email = users.email";
+    $sql = "SELECT invitations.event_id, invitations.invited_user_email, users.email, users.username, users.level, users.image FROM invitations, users WHERE invitations.event_id = :event_id AND invitations.invited_user_email = users.email";
 
     $query = $pdo->prepare($sql);
     $query->bindParam(':event_id', $eventId, PDO::PARAM_INT);
     $query->execute();
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    $attendingGuest = 0;
-
-    foreach ($result as $row) {
-        if ($row['status'] === 'accepted') {
-            $attendingGuest++;
-        }
-    }
-
-    $response["attendingGuests"] = $attendingGuest;
     $response["numberOfGuests"] = count($result);
-    $response["guest"] = $result;
+    $response["guests"] = $result;
     sendOkResponse($response);
 }
 else {

@@ -8,39 +8,25 @@ if(strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') != 0){
     sendBadRequestResponse();
 }
 
-if(isset($_GET["eventId"])) {
-    $eventId = $_GET["eventId"];
-}
-else {
-    sendBadRequestResponse();
-}
-
 $user = getUserIfAuthenticated();
 
 if(isset($user)) {
     $userId = $user["user_id"];
+    $status = 'public';
 
     global $dsn, $pdoOptions;
     $pdo = connectDatabase($dsn, $pdoOptions);
 
-    $sql = "SELECT invitations.event_id, invitations.invited_user_email, invitations.status, invitations.state, users.username, users.email, users.image, users.level FROM invitations, users WHERE invitations.event_id = :event_id AND invitations.invited_user_email = users.email";
+    $sql = "SELECT events.*, users.image, users.username, users.level FROM events, users WHERE events.user_id != :user_id AND event_status = :event_status AND events.user_id = users.user_id";
 
     $query = $pdo->prepare($sql);
-    $query->bindParam(':event_id', $eventId, PDO::PARAM_INT);
+    $query->bindParam(':user_id', $userId, PDO::PARAM_INT);
+    $query->bindParam(':event_status', $status, PDO::PARAM_STR);
     $query->execute();
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    $attendingGuest = 0;
-
-    foreach ($result as $row) {
-        if ($row['status'] === 'accepted') {
-            $attendingGuest++;
-        }
-    }
-
-    $response["attendingGuests"] = $attendingGuest;
-    $response["numberOfGuests"] = count($result);
-    $response["guest"] = $result;
+    $response["numberOfPublicEvents"] = count($result);
+    $response["events"] = $result;
     sendOkResponse($response);
 }
 else {

@@ -23,7 +23,9 @@ if(isset($user)) {
     $query->execute();
     $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    sendOkResponse($result);
+    $response["numberOfEvents"] = count($result);
+    $response["events"] = $result;
+    sendOkResponse($response);
 }
 else {
     sendUnauthorizedResponse();

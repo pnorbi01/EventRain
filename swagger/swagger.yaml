@@ -873,6 +873,36 @@ paths:
           schema:
             type: string
           description: The guest's email
+  /api/events/read-public-events.php:
+    post:
+      tags:
+        - Read public events
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadPublicEventsResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
 components:
   schemas:
     LoginRequest:
@@ -1159,46 +1189,52 @@ components:
               type: integer
               example: 'id'
     ReadEventsResponse:
-      type: array
-      items:
-        type: object
-        properties:
-          event_id:
-            type: integer
-            example: 'event_id'
-          user_id:
-            type: integer
-            example: 'user_id'
-          event_type:
-            type: string
-            example: 'event_type'
-          event_status:
-            type: string
-            example: 'event_status'
-          event_name:
-            type: string
-            example: 'event_name'
-          event_location:
-            type: string
-            example: 'event_location'
-          event_street:
-            type: string
-            example: 'event_street'
-          event_active:
-            type: string
-            example: 'event_active'
-          event_start:
-            type: string
-            format: date
-            example: 'event_start'
-          event_close:
-            type: string
-            format: date
-            example: 'event_close'
-          date_time:
-            type: string
-            format: date
-            example: 'date_time'
+      type: object
+      properties:
+        numberOfEvents:
+          type: integer
+          example: 'number_of_events'
+        events:
+          type: array
+          items:
+            type: object
+            properties:
+              event_id:
+                type: integer
+                example: 'event_id'
+              user_id:
+                type: integer
+                example: 'user_id'
+              event_type:
+                type: string
+                example: 'event_type'
+              event_status:
+                type: string
+                example: 'event_status'
+              event_name:
+                type: string
+                example: 'event_name'
+              event_location:
+                type: string
+                example: 'event_location'
+              event_street:
+                type: string
+                example: 'event_street'
+              event_active:
+                type: string
+                example: 'event_active'
+              event_start:
+                type: string
+                format: date
+                example: 'event_start'
+              event_close:
+                type: string
+                format: date
+                example: 'event_close'
+              date_time:
+                type: string
+                format: date
+                example: 'date_time'
     ReadNotificationsResponse:
       type: array
       items:
@@ -1408,6 +1444,53 @@ components:
         message:
           type: string
           example: 'message'
+    ReadPublicEventsResponse:
+      type: object
+      properties:
+        numberOfPublicEvents:
+          type: integer
+          example: 'number_of_public_events'
+        events:
+          type: array
+          items:
+            type: object
+            properties:
+              event_id:
+                type: integer
+                example: 'event_id'
+              user_id:
+                type: integer
+                example: 'user_id'
+              event_type:
+                type: string
+                example: 'event_type'
+              event_status:
+                type: string
+                example: 'event_status'
+              event_name:
+                type: string
+                example: 'event_name'
+              event_location:
+                type: string
+                example: 'event_location'
+              event_street:
+                type: string
+                example: 'event_street'
+              event_active:
+                type: string
+                example: 'event_active'
+              event_start:
+                type: string
+                format: date
+                example: 'event_start'
+              event_close:
+                type: string
+                format: date
+                example: 'event_close'
+              date_time:
+                type: string
+                format: date
+                example: 'date_time'
     BadRequestResponse:
       type: object
       properties:
