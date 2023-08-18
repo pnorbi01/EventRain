@@ -23,7 +23,7 @@ if(isset($user)) {
     global $dsn, $pdoOptions;
     $pdo = connectDatabase($dsn, $pdoOptions);
 
-    $sql = "SELECT invitations.event_id, invitations.invited_user_email, users.email, users.username, users.level, users.image FROM invitations, users WHERE invitations.event_id = :event_id AND invitations.invited_user_email = users.email";
+    $sql = "SELECT invitations.event_id, invitations.invited_user_email, invitations.status, users.email, users.username, users.level, users.image FROM invitations, users WHERE invitations.event_id = :event_id AND invitations.invited_user_email = users.email";
 
     $query = $pdo->prepare($sql);
     $query->bindParam(':event_id', $eventId, PDO::PARAM_INT);

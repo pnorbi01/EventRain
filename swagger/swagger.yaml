@@ -903,6 +903,128 @@ paths:
           schema:
             type: string
           description: Token
+  /api/events/read-public-event-guests.php:
+    post:
+      tags:
+        - Read public event guests
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReadPublicEventGuestsResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+        - in: query
+          name: eventId
+          schema:
+            type: integer
+          description: The event's id
+  /api/events/join-public-event.php:
+    post:
+      tags:
+        - Join public event
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JoinPublicEventResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerErrorResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+        - in: query
+          name: eventId
+          schema:
+            type: integer
+          description: The event's id
+        - in: query
+          name: ownerId
+          schema:
+            type: integer
+          description: The event owner's id
+  /api/events/quit-public-event.php:
+    delete:
+      tags:
+        - Quit public event
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuitPublicEventResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundResponse'
+      parameters:
+        - in: header
+          name: Token  
+          required: true
+          schema:
+            type: string
+          description: Token
+        - in: query
+          name: eventId
+          schema:
+            type: integer
+          description: The event's id
 components:
   schemas:
     LoginRequest:
@@ -1491,6 +1613,50 @@ components:
                 type: string
                 format: date
                 example: 'date_time'
+    ReadPublicEventGuestsResponse:
+      type: object
+      properties:
+        numberOfGuests:
+          type: integer
+          example: 'number_of_guests'
+        guests:
+          type: array
+          items:
+            type: object
+            properties:
+              event_id:
+                type: integer
+                example: 'event_id'
+              invited_user_email:
+                type: string
+                example: 'invited_user_email'
+              status:
+                type: string
+                example: 'status'
+              email:
+                type: string
+                example: 'email'
+              username:
+                type: string
+                example: 'username'
+              level:
+                type: string
+                example: 'level'
+              image:
+                type: string
+                example: 'image'
+    JoinPublicEventResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'
+    QuitPublicEventResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'message'
     BadRequestResponse:
       type: object
       properties:

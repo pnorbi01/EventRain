@@ -13,7 +13,7 @@ if(strcasecmp($contentType, 'application/json') != 0){
     sendBadRequestResponse();
 } */
 
-if(isset($_GET["eventId"])) {
+if(isset($_GET["eventId"]) && isset($_GET["status"])) {
     $eventId = $_GET["eventId"];
     $status = $_GET["status"];
 }

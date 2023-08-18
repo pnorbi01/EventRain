@@ -33,7 +33,7 @@ if(isset($user)) {
     $attendingGuest = 0;
 
     foreach ($result as $row) {
-        if ($row['status'] === 'accepted') {
+        if ($row['status'] === 'accepted' || $row['status'] === 'joined') {
             $attendingGuest++;
         }
     }

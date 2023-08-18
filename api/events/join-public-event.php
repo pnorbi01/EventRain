@@ -13,25 +13,57 @@ if(strcasecmp($contentType, 'application/json') != 0){
     sendBadRequestResponse();
 } */
 
+if(isset($_GET["eventId"]) && isset($_GET["ownerId"])) {
+    $eventId = $_GET["eventId"];
+    $ownerId = $_GET["ownerId"];
+}
+else {
+    sendBadRequestResponse();
+}
+
 $user = getUserIfAuthenticated();
 
 if(isset($user)) {
     $userId = $user["user_id"];
     $userEmail = $user["email"];
     $status = 'joined';
+    $state = 'read';
 
     global $dsn, $pdoOptions;
     $pdo = connectDatabase($dsn, $pdoOptions);
 
-    $sql = "SELECT * FROM invitations, users, events WHERE invited_user_email = :email AND invitations.user_id = users.user_id AND invitations.event_id = events.event_id AND invitations.status != :status ORDER BY invitations.date_time DESC";
+    $memberOfEventSql = "SELECT * FROM invitations WHERE event_id = :event_id AND invited_user_email = :invited_user_email";
+    $memberOfEventQuery = $pdo->prepare($memberOfEventSql);
+    $memberOfEventQuery->bindParam(':invited_user_email', $userEmail, PDO::PARAM_STR);
+    $memberOfEventQuery->bindParam(':event_id', $eventId, PDO::PARAM_INT);
+    $memberOfEventQuery->execute();
+    $memberOfEventResult = $memberOfEventQuery->fetch();
 
-    $query = $pdo->prepare($sql);
-    $query->bindParam(':email', $userEmail, PDO::PARAM_STR);
-    $query->bindParam(':status', $status, PDO::PARAM_STR);
-    $query->execute();
-    $result = $query->fetchAll(PDO::FETCH_ASSOC);
+    if($memberOfEventQuery->rowCount() > 0) {
+        $response["message"] = "You are already member of the following event.";
+        sendBadRequestResponse($response);
+    }
+    else {
+        $sql = "INSERT INTO invitations(event_id, user_id, invited_user_email, status, state) VALUES (:event_id, :user_id, :invited_user_email, :status, :state)";
 
-    sendOkResponse($result);
+        $query = $pdo->prepare($sql);
+        $query->bindParam(':event_id', $eventId, PDO::PARAM_INT);
+        $query->bindParam(':user_id', $ownerId, PDO::PARAM_INT);
+        $query->bindParam(':invited_user_email', $userEmail, PDO::PARAM_STR);
+        $query->bindParam(':status', $status, PDO::PARAM_STR);
+        $query->bindParam(':state', $state, PDO::PARAM_STR);
+        $query->execute();
+
+        $lastInsertedId = $pdo->lastInsertId();
+
+        if ($lastInsertedId > 0) {
+            $response["message"] = "Joined party successfully";
+            sendOkResponse($response);
+        } 
+        else {
+            sendServerErrorResponse($response);
+        }
+    } 
 }
 else {
     sendUnauthorizedResponse();
