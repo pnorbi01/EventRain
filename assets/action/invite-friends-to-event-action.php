@@ -11,6 +11,8 @@ if(isset($_POST["inviteFriendBtn"])) {
         $friend = trim($_POST["firendEmail"]);
         $eventId = trim($_POST["eventId"]);
         $email = trim($_POST["firendEmail"]);
+        $text = strip_tags(trim($_POST["textToFriend"]));
+        $color = $_POST["selectedColor"];
         $event_name = checkIfAlreadyInvited($eventId, $email);
 
         if($event_name == null) {
@@ -38,7 +40,7 @@ if(isset($_POST["inviteFriendBtn"])) {
             $eventName = $eventNameResults["event_name"];
 
             if ($lastInsertedId > 0) {
-                sendFriendInvitation($email, $eventName);
+                sendFriendInvitation($email, $eventName, $text, $color);
                 redirection("../../invite-friends-to-event.php?m=1&id=$eventId");
             } 
             else {

@@ -233,14 +233,21 @@ function sendPasswordRecoveryEmail($username, $email, $token)
     return sendMail($email, "Forgotten password", $body);
 }
 
-function sendFriendInvitation($email, $eventName)
+function sendFriendInvitation($email, $eventName, $text, $color)
 {
     $url = SITE . "index.php";
     $user = $_SESSION["username"];
-    $body = "Dear, <strong>User</strong>";
-    $body .= "<br><br>You got event invitation from: <strong>$user</strong>";
-    $body .= "<br>Event's name: <strong>$eventName</strong>";
-    $body .= "<br><br>Visit our <strong><a href='".$url."'>site</a></strong> to get more informations about the upcoming event!";
+
+    $body = "<!DOCTYPE html>";
+    $body .= "<html><head><meta charset='utf-8'></head><body>";
+    $body .= "<table style='width: 100%; max-width: 600px; border-radius: 20px; margin: 0 auto; background-color: #CCC; padding: 20px;'>";
+    $body .= "<tr><td colspan='2' style='text-align: center;'>Dear, <strong style='color: $color;'>User</strong></td></tr>";
+    $body .= "<tr><td colspan='2' style='text-align: center;'>You got event invitation from: <strong style='color: $color;'>$user</strong></td></tr>";
+    $body .= "<tr><td colspan='2' style='text-align: center;'>Event's name: <strong style='color: $color;'>$eventName</strong></td></tr>";
+    $body .= "<tr><td colspan='2' style='text-align: center;'>Dedicated to you: <br><i><strong style='color: $color;'>$text</strong></i></td></tr>";
+    $body .= "<tr><td colspan='2' style='text-align: center;'><a href='$url' style='display: inline-block; background-color: $color; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;'>Visit our site</a></td></tr>";
+    $body .= "</table></body></html>";
+
     return sendMail($email, "Event Invitation", $body);
 }
 

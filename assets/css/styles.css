@@ -177,6 +177,7 @@
 
 .activeAdminPanelNav:hover {
     color: #1DA1F2;
+    border-bottom-color: #1DA1F2;
 }
 
 /* --------------------------------- END --------------------------------- */

@@ -22,7 +22,6 @@ function sendMail($email, $subject, $body) {
 
 
         //Recipients
-        $mail->addCustomHeader('List-Unsubscribe', '<mailto:pnorbyy01@gmail.com>');
         $mail->setFrom('printf@printf.stud.vts.su.ac.rs', 'Event Rain');
         $mail->addAddress($email, 'User');     //Add a recipient
 

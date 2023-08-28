@@ -63,6 +63,15 @@ if ($query->rowCount() == 1) {
                                 placeholder="name@example.com" autofocus>
                             <label for="firendEmail" class="form-label">Type your friend's email here</label>
                         </div>
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" name="textToFriend" id="textToFriend"></textarea>
+                            <label for="textToFriend">Write a special text to your friend</label>
+                        </div>
+                        <div class="form mt-3 d-flex flex-column">
+                            <label for="colorOfInvitation">Pick the main color of your invitation</label>
+                            <input type="color" id="colorOfInvitation" name="colorOfInvitation" value="#00B0FF" title="Choose your color">
+                            <input type="hidden" id="selectedColor" name="selectedColor" value="#00B0FF">
+                        </div>
                         <div class="pt-4 mb-5 pb-1">
                             <input type="hidden" name="eventId" value="<?= $result["event_id"] ?>">
                             <input type="submit" name="inviteFriendBtn" class="btn btn-primary btn-lg btn-block w-100"
@@ -99,4 +108,15 @@ const validateEmail = (email) => {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
 };
+
+function updateSelectedColor() {
+    const colorInput = document.getElementById('colorOfInvitation');
+    const selectedColorInput = document.getElementById('selectedColor');
+
+    selectedColorInput.value = colorInput.value;
+}
+
+const colorInput = document.getElementById('colorOfInvitation');
+colorInput.addEventListener('input', updateSelectedColor);
+
 </script>
