@@ -103,13 +103,9 @@ $myInvitedEventResult = $myInvitedEventQuery->fetch();
                 <?php 
                 } else {
                     if(isAuthenticated()){
-                        if($currentDateTime < $eventClose) {
-                            if($myInvitedEventResult["status"] == "tentative") {
-                ?>
-                <a href="change-my-status.php?id=<?= $eventId ?>&status=<?= $myInvitedEventResult["status"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="changeMyStatus" value="Change my status"></a>
-                
-                <?php       } 
-                        } ?>
+                        if($currentDateTime < $eventClose) { ?>
+                            <a href="change-my-status.php?id=<?= $eventId ?>&status=<?= $myInvitedEventResult["status"] ?>"><input class="btn btn-outline-primary mb-3" type="submit" name="changeMyStatus" value="Change my status"></a>
+                <?php   } ?>
                 <a href="invited-people.php?id=<?= $eventId ?> "><input class="btn btn-outline-primary mb-3" type="submit" name="checkInvitedPeople" value="Invited people"></a>
                 <?php if($myInvitedEventResult["status"] == "accepted") { 
                         if($currentDateTime < $eventClose) { ?>

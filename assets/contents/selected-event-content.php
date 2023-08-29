@@ -111,7 +111,7 @@ $MyEventsResult = $query->fetchAll(PDO::FETCH_ASSOC);
                             if($currentDateTime < $eventClose) {
                 ?>
                 <a
-                    href="assets/action/want-to-join-action.php?id=<?= $result["event_id"] ?>&email=<?= $_SESSION["user_email"] ?>"><input
+                    href="assets/action/want-to-join-action.php?id=<?= $result["event_id"] ?>&email=<?= $_SESSION["user_email"]?>&userId=<?= $creatorResult["user_id"] ?>"><input
                         class="btn btn-outline-primary mb-3" type="submit" name="wantToJoin" value="Join party"></a>
                 <?php   }
                     } 
