@@ -188,9 +188,9 @@ function sendData($username, $email, $token)
     return sendMail($email, "Registration", $body);
 }
 
-function sendReminder($email, $eventName)
+function sendReminder($email, $eventName, $eventStart)
 {
-    $body = "The following event: $eventName, is about to start do not forget!";
+    $body = "The upcoming event: <strong>$eventName</strong>, is just around the corner, scheduled for commencement on <strong>$eventStart</strong>. Please ensure it remains on your radar!";
     return sendMail($email, "Reminder: The event will begin within 1 hour", $body);
 }
 
@@ -244,7 +244,9 @@ function sendFriendInvitation($email, $eventName, $text, $color)
     $body .= "<tr><td colspan='2' style='text-align: center;'>Dear, <strong style='color: $color;'>User</strong></td></tr>";
     $body .= "<tr><td colspan='2' style='text-align: center;'>You got event invitation from: <strong style='color: $color;'>$user</strong></td></tr>";
     $body .= "<tr><td colspan='2' style='text-align: center;'>Event's name: <strong style='color: $color;'>$eventName</strong></td></tr>";
-    $body .= "<tr><td colspan='2' style='text-align: center;'>Dedicated message to you: <br><i><strong style='color: $color;'>$text</strong></i></td></tr>";
+    if(strlen($text) != 0) {
+        $body .= "<tr><td colspan='2' style='text-align: center;'>Dedicated message to you: <br><i><strong style='color: $color;'>$text</strong></i></td></tr>";
+    }
     $body .= "<tr><td colspan='2' style='text-align: center;'><a href='$url' style='display: inline-block; background-color: $color; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;'>Visit our site</a></td></tr>";
     $body .= "</table></body></html>";
 

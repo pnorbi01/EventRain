@@ -18,6 +18,8 @@ if($query->rowCount() > 0) {
     foreach ($result as $event) {
 
         $eventId = $event['event_id'];
+        $dateTime = new DateTime($event['event_start']);
+        $formattedDate = $dateTime->format('F jS, Y \a\t g:i A');
 
         $guestEmailSql = "SELECT * FROM invitations WHERE event_id = :event_id";
         $guestEmailQuery = $pdo->prepare($guestEmailSql);
@@ -28,7 +30,7 @@ if($query->rowCount() > 0) {
         
         if($guestEmailQuery->rowCount() > 0) {
             foreach ($guestEmailResult as $guest) {
-                sendReminder($guest['invited_user_email'], $event['event_name']);
+                sendReminder($guest['invited_user_email'], $event['event_name'], $formattedDate);
             }
         }
 
