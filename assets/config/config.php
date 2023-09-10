@@ -135,7 +135,8 @@ $messages = [
     ],
     'change-my-status.php' => [
         1 => ['style' => 'danger', 'text' => 'No change has been made.'],
-        2 => ['style' => 'danger', 'text' => 'Something went wrong, while updating your status, please try again.']
+        2 => ['style' => 'danger', 'text' => 'Something went wrong, while updating your status, please try again.'],
+        3 => ['style' => 'danger', 'text' => 'Please release your gift before you cancel the invitation.']
     ],
     'invited-people.php' => [
         1 => ['style' => 'success', 'text' => 'User has been deleted and his gift has been released successfully.'],

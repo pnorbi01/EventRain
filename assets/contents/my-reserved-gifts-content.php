@@ -26,7 +26,8 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
     <?php
         if ($query->rowCount() > 0){
             foreach($results as $result){
-                $eventClose = date('Y-m-d h:i', strtotime($result["event_close"]));
+                $eventClose = strtotime($result["event_close"]);
+                $currentDateTime = time();
     ?>
         <div class="card text-center" style="width: 18rem;">
             <div class="card-body">
@@ -36,10 +37,10 @@ $results = $query->fetchAll(PDO::FETCH_ASSOC);
                     <small>Organizer - <strong><?= $result["lastname"]." ".$result["firstname"] ?></strong></small><br>
                 </p>
                 <span class="text-center">If you want to exchange your gift please find this event's profile before it closes!</span><br><br>
-                <?php if(date('Y-m-d h:i') < $eventClose) { ?>
+                <?php if($currentDateTime < $eventClose) { ?>
                     <span class="text-center text-muted" title="Event is open"><strong><i class="bi bi-unlock"></i></strong></span>
                 <?php } else { ?>
-                    <span class="text-center text-muted" title="Event is closed"><strong><i class="bi bi-fill"></i></strong></span>
+                    <span class="text-center text-muted" title="Event is closed"><strong><i class="bi bi-lock"></i></strong></span>
                 <?php } ?>
             </div>
         </div>

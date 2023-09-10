@@ -13,20 +13,53 @@ if(isset($_POST["changeMyStatus"])) {
             global $dsn, $pdoOptions;
             $pdo = connectDatabase($dsn, $pdoOptions);
 
-            $sql = "UPDATE invitations SET status = :status WHERE invited_user_email = :email AND event_id = :id";
+            if($myEventStatus == "declined") {
 
-            $query = $pdo->prepare($sql);
-            $query->bindParam(':status', $myEventStatus, PDO::PARAM_STR);
-            $query->bindParam(':email', $_SESSION["user_email"], PDO::PARAM_STR);
-            $query->bindParam(':id', $eventsId, PDO::PARAM_INT);
-            $query->execute();
+                $checkForGiftSql = "SELECT * FROM gifts WHERE user_id = :user_id AND event_id = :event_id";
 
+                $checkForGiftQuery = $pdo->prepare($checkForGiftSql);
+                $checkForGiftQuery->bindParam(':user_id', $_SESSION["id_user"], PDO::PARAM_INT);
+                $checkForGiftQuery->bindParam(':event_id', $eventsId, PDO::PARAM_INT);
+                $checkForGiftQuery->execute();
+                $checkForGiftResult = $checkForGiftQuery->fetch();
 
-            if($query->rowCount() == 1) {
-                header("Location: ../../events.php?m=10");
+                if($checkForGiftQuery->rowCount() == 1) {
+                    header("Location: ../../change-my-status.php?m=3&id=$eventsId&status=$myEventStatus");
+                }
+                else {
+                    $sql = "UPDATE invitations SET status = :status WHERE invited_user_email = :email AND event_id = :id";
+
+                    $query = $pdo->prepare($sql);
+                    $query->bindParam(':status', $myEventStatus, PDO::PARAM_STR);
+                    $query->bindParam(':email', $_SESSION["user_email"], PDO::PARAM_STR);
+                    $query->bindParam(':id', $eventsId, PDO::PARAM_INT);
+                    $query->execute();
+        
+        
+                    if($query->rowCount() == 1) {
+                        header("Location: ../../events.php?m=10");
+                    }
+                    else{
+                        header("Location: ../../change-my-status.php?m=1&id=$eventsId&status=$myEventStatus");
+                    }
+                }
             }
-            else{
-                header("Location: ../../change-my-status.php?m=1&id=$eventsId&status=$myEventStatus");
+            else {
+                $sql = "UPDATE invitations SET status = :status WHERE invited_user_email = :email AND event_id = :id";
+
+                $query = $pdo->prepare($sql);
+                $query->bindParam(':status', $myEventStatus, PDO::PARAM_STR);
+                $query->bindParam(':email', $_SESSION["user_email"], PDO::PARAM_STR);
+                $query->bindParam(':id', $eventsId, PDO::PARAM_INT);
+                $query->execute();
+    
+    
+                if($query->rowCount() == 1) {
+                    header("Location: ../../events.php?m=10");
+                }
+                else{
+                    header("Location: ../../change-my-status.php?m=1&id=$eventsId&status=$myEventStatus");
+                }
             }
     }
     else {
