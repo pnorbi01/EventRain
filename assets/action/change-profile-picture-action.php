@@ -27,7 +27,7 @@ if(isset($_POST["changeProfilePicture"])) {
     }
 
     if (exif_imagetype($_FILES["file"]["tmp_name"]) == 2 || exif_imagetype($_FILES["file"]["tmp_name"]) == 3) {
-        $directory = "../images/profile-pictures/";
+        $directory = "../../assets/images/profile-pictures/";
 
         ["extension" => $extension] = pathinfo($_FILES["file"]["name"]);
 
@@ -36,7 +36,7 @@ if(isset($_POST["changeProfilePicture"])) {
         if(!move_uploaded_file($_FILES['file']["tmp_name"], $directory.$newFileName)) {
             redirection("../../edit-profile.php?m=14");
             exit();
-        } 
+        }
 
         global $dsn, $pdoOptions;
         $pdo = connectDatabase($dsn, $pdoOptions);
