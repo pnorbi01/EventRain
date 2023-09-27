@@ -148,7 +148,7 @@ $MyEventsResult = $query->fetchAll(PDO::FETCH_ASSOC);
                 loading="lazy"
                 allowfullscreen
                 referrerpolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAynXcJuGc4oaBWT-SRLyHegDlGYHYs7v0
+                src="https://www.google.com/maps/embed/v1/place?key=apiKey
                     &q=<?= $result["event_location"] . ", " . $result["event_street"] ?>">
             </iframe>
         </div>
